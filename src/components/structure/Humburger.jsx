@@ -39,7 +39,7 @@ export const Hamburger = () => {
                 </button>
             </div>
             <div className={` ${isOpen ? 'block' : 'hidden'}`}>
-                <div className='hidden bg-white shadow-lg px-8 pb-5 md:flex md:flex-col space-y-2 items-center'>
+                <div className='hidden bg-white shadow-lg px-8 pb-5 md:flex md:flex-col space-y-2 items-center md:text-sm sm:text-xs'>
                     { nav.map((r, i) => {
 
                         if (!r.isPrivate && r.isMenu) {

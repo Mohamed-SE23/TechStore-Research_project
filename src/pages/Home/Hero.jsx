@@ -4,8 +4,8 @@ import hero2 from '../../assets/hero2.png'
 
 const Hero = () => {
   return (
-    <div className='container relative h-[80%] flex justify-between p-8'>
-      <div className='mt-[10%] md:mt-[7%] sm:mt-0'>
+    <div className='w-11/12 m-auto relative h-[80%] flex justify-between p-8'>
+      <div className='mt-[10%] lg:mt-[6%] md:mt-[4%] sm:mt-0'>
         <h1 className='text-4xl text-[#333333] md:text-2xl sm:text-xl font-bold'>
             TechStore
         </h1>
@@ -19,8 +19,8 @@ const Hero = () => {
             <img src={heroImg} alt='landingPage'
             className='w-full h-auto' />
         </div>
-        <div className='absolute bottom-5 left-7'>
-            <img src={hero2} className='w-11/12 h-11/12 lg:w-9/12 lg:h-9/12 md:w-7/12 md:h-7/12 sm:w-3/12 sm:h-3/12' />
+        <div className='absolute bottom-5 left-7 -z-10'>
+            <img src={hero2} className='w-10/12 h-10/12 lg:w-8/12 lg:h-8/12 md:w-6/12 md:h-6/12 sm:w-3/12 sm:h-3/12 xsm:hidden' />
         </div>
     </div>
   )

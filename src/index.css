@@ -11,6 +11,9 @@
   }
   }
 
+  .colorb {
+    @apply text-[#ff7a57]
+  }
   /* primary button */
   .btn-primary {
     @apply text-white px-3 py-1 font-semibold rounded bg-[#FF7A57] hover:bg-orange-600 active:bg-orange-700 focus:outline-none focus:ring focus:ring-orange-300
@@ -20,5 +23,5 @@
   }
   /*** container ***/
   .container {
-    @apply w-full m-auto;
+    @apply w-full ;
   }
