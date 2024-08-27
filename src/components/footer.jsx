@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FaFacebookF, FaMailBulk, FaLinkedin, FaWhatsapp, FaMailchimp } from "react-icons/fa";
+import { FaFacebookF, FaLinkedin, FaWhatsapp } from "react-icons/fa";
+import { MdOutlineMailOutline } from "react-icons/md";
 
 function Footer() {
   return (
@@ -96,13 +97,13 @@ function Footer() {
                 <FaFacebookF />
               </Link>
               <Link to="#" className="text-slate-100 hover:text-slate-300 text-2xl">
-                <FaMailBulk />
+                <FaWhatsapp />
               </Link>
               <Link to="#" className="text-slate-100 hover:text-slate-300 text-2xl">
                 <FaLinkedin />
               </Link>
               <Link to="#" className="text-slate-100 hover:text-slate-300 text-2xl">
-                <FaWhatsapp />
+                <MdOutlineMailOutline />
               </Link>
             </div>
           </div>

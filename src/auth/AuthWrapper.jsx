@@ -16,10 +16,12 @@ export const AuthWrapper = () => {
         console.log("this is location", location)
         if (location.pathname === '/sign' || location.pathname === '/register') {
             setShowNav(false);
+        } else {
+            setShowNav(true);
         }
 
     }, [location]);
-    const [ user, setUser ] = useState({name: "Mohamed", isAuthenticated: true});
+    const [ user, setUser ] = useState({name: "Mohamed", type: "provider", isAuthenticated: true});
 
     const login = (userName, password) => {
         // login function as testing i will try static

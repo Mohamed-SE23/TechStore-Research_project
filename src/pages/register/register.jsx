@@ -1,169 +1,100 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import Brand from '../../components/structure/brand';
-import customer from '../../assets/customer.png';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Provider from "./provider";
+import CustomerRegister from "./customer";
 
-function Register() {
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    phone: '',
-    location: '',
-    profilePicture: null,
-    password: '',
-    confirmPassword: ''
-  });
+const Register = () => {
+  const [selectedOption, setSelectedOption] = useState("");
+  const [accountType, setAccountType] = useState(""); // Track account type
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  // navigate to home page function 
+  const navigate = useNavigate();
+
+  const handleCancelation = () => {
+    navigate('/');
+  }
+
+  // targeting selected option
+  const handleSelectionChange = (event) => {
+    setSelectedOption(event.target.value);
   };
 
-  const handleFileChange = (e) => {
-    setFormData({ ...formData, profilePicture: e.target.files[0] });
+  // sign selected option to account type
+  const handleNextClick = () => {
+    setAccountType(selectedOption);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission, validation, etc.
-    console.log(formData);
-  };
+    // back click function
 
+    const handleBackClick = () => {
+      setAccountType(""); // Reset the account type to show the selection form
+    };
+  
   return (
     <>
-      <div className='text-center my-10'>
-        <Brand />
-      </div>
-      <div className='flex justify-between items-center mx-auto mb-20 w-[70%] rounded shadow-lg sm:w-full sm:shadow-none md:justify-center'>
-        <div className='flex-none relative pr-6 lg:hidden w-1/2 -ml-1'>
-          <img src={customer} alt="customer" className='inset-0 w-full h-full object-cover' />
-        </div>
-        <div className="min-h-screen flex items-center justify-center w-1/2 px-4 lg:w-full md:p-5 sm:px-6 lg:px-8">
-          <div className="max-w-md w-full space-y-8 pr-7 lg:p-5">
-            <div>
-              <h2 className="text-center text-3xl font-bold text-gray-700">Welcome to Our Tech<span className='text-[#ff7a57]'>Store</span></h2>
-              <p className="mt-2 text-center text-sm text-gray-600">
-                Already have an account?{' '}
-                <Link to="/sign" className="font-medium text-indigo-600 hover:text-indigo-500">
-                  sign in
-                </Link>
-              </p>
-            </div>
-            <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-              <div className="rounded-md shadow-sm space-y-4">
-                <div>
-                  <label htmlFor="username" className="sr-only">Username</label>
-                  <input
-                    id="username"
-                    name="username"
-                    type="text"
-                    autoComplete="username"
-                    required
-                    value={formData.username}
-                    onChange={handleChange}
-                    className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                    placeholder="Username"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="email" className="sr-only">Email</label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    required
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                    placeholder="Email"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="phone" className="sr-only">Phone Number</label>
-                  <input
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    autoComplete="tel"
-                    required
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                    placeholder="Phone Number"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="location" className="sr-only">Location</label>
-                  <select
-                    id="location"
-                    name="location"
-                    value={formData.location}
-                    onChange={handleChange}
-                    required
-                    className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                  >
-                    <option value="">Select Location</option>
-                    <option value="New York">New York</option>
-                    <option value="Los Angeles">Los Angeles</option>
-                    <option value="Chicago">Chicago</option>
-                    <option value="Houston">Houston</option>
-                    <option value="Miami">Miami</option>
-                  </select>
-                </div>
-                <div>
-                  <label htmlFor="profilePicture" className="sr-only">Profile Picture</label>
-                  <input
-                    id="profilePicture"
-                    name="profilePicture"
-                    type="file"
-                    onChange={handleFileChange}
-                    className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="password" className="sr-only">Password</label>
-                  <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    autoComplete="new-password"
-                    required
-                    value={formData.password}
-                    onChange={handleChange}
-                    className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                    placeholder="Password"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="confirmPassword" className="sr-only">Confirm Password</label>
-                  <input
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    type="password"
-                    required
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                    className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                    placeholder="Confirm Password"
-                  />
-                </div>
-              </div>
 
-              <div>
+      {/* Selection Form */}
+      {!accountType && (
+        <div className="mx-8">
+          <h1 className="text-3xl text-gray-800 text-center font-bold my-10  
+                         lg:text-3xl md:text-2xl sm:text-xl">
+            Tech<span className="text-[#ff7a57]">Store</span> Account registration
+          </h1>
+          <div className="flex flex-col justify-center items-center gap-4">
+            <h2 className="text-2xl font-bold mb-4 lg:text-xl sm:text-sm">
+              Select Account Type
+            </h2>
+            <div>
+              <div className="flex flex-col gap-4">
+                <label className="flex items-center">
+                  <input
+                      type="radio"
+                      name="account"
+                      value="customer"
+                      checked={selectedOption === "customer"}
+                      onChange={handleSelectionChange}
+                      className="mr-2"
+                  />
+                  <span className="text-gray-700">Create <span className="text-[#ff7a75] font-semibold">customer</span> account</span>
+                  </label>
+
+                  <label className="flex items-center">
+                  <input
+                      type="radio"
+                      name="account"
+                      value="provider"
+                      checked={selectedOption === "provider"}
+                      onChange={handleSelectionChange}
+                      className="mr-2"
+                  />
+                  <span className="text-gray-700">Create <span className="text-[#ff7a57] font-semibold">provider</span> account</span>
+                  </label>
+              </div>
+              <div className="flex space-x-4 mt-8">
                 <button
-                  type="submit"
-                  className="group relative w-full flex justify-center lg:mb-5 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#ff7a57] hover:bg-[#ff6739] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#ff6739]"
+                    onClick={handleCancelation}
+                    className="group relative w-full flex justify-center lg:mb-5 py-2 px-4 border border-transparent text-sm font-medium bg-gray-500 text-white rounded hover:bg-gray-600 focus:outline-none"
                 >
-                  Register
+                    Cancel
+                </button>
+                <button
+                    onClick={handleNextClick}
+                    className="group relative w-full flex justify-center lg:mb-5 py-2 px-4 border border-transparent text-sm font-medium bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none"
+                >
+                    Next
                 </button>
               </div>
-            </form>
+            </div>
+
+            </div>
           </div>
-      </div>
-    </div>
+        )}
+
+      {/* Conditional Rendering of Registration Forms */}
+      {accountType === "provider" && <Provider onBackClick={handleBackClick} />}
+      {accountType === "customer" && <CustomerRegister onBackClick={handleBackClick} />}
     </>
   );
-}
+};
 
 export default Register;
