@@ -12,7 +12,7 @@ export const RenderRoutes = () => {
         <Routes>
             { nav.map((r, i) => {
 
-                if (r.isPrivate && user.isAuthenticated) {
+                if (r.isPrivate && user.isAuthenticated && user.type === 'customer') {
                     return <Route key={i} path={r.path} element={r.element} />;
                 } else if (!r.isPrivate) {
                     return <Route key={i} path={r.path} element={r.element} />;
@@ -21,7 +21,7 @@ export const RenderRoutes = () => {
             })
             }
             { providerNav.map((r, i) => {
-                if (r.isPrivate && user.isAuthenticated) {
+                if (r.isPrivate && user.isAuthenticated && user.type === 'provider') {
                     return <Route key={i} path={r.path} element={r.element} />;
                 }
             })

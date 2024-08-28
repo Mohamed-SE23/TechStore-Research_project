@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Provider from "./provider";
+import Provider from "./provider/provider";
 import CustomerRegister from "./customer";
 
 const Register = () => {
