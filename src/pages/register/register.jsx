@@ -35,9 +35,9 @@ const Register = () => {
 
       {/* Selection Form */}
       {!accountType && (
-        <div className="mx-8">
-          <h1 className="text-3xl text-gray-800 text-center font-bold my-10  
-                         lg:text-3xl md:text-2xl sm:text-xl">
+        <div className="flex flex-col justify-center items-center border border-[#ff7a57] mt-[8%] px-8 py-12 mx-[30%] lg:mx-[%25] rounded md:mx-[20%] sm:mx-auto sm:border-none">
+          <h1 className="text-2xl text-gray-800 text-center font-bold mb-10  
+                          md:text-xl">
             Tech<span className="text-[#ff7a57]">Store</span> Account registration
           </h1>
           <div className="flex flex-col justify-center items-center gap-4">
@@ -79,7 +79,9 @@ const Register = () => {
                 </button>
                 <button
                     onClick={handleNextClick}
-                    className="group relative w-full flex justify-center lg:mb-5 py-2 px-4 border border-transparent text-sm font-medium bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none"
+                    className={`group relative w-full flex justify-center lg:mb-5 py-2 px-4 border 
+                                text-sm font-medium rounded focus:outline-none
+                                ${selectedOption === "" ? ' text-gray-300 border-2' : 'bg-blue-500 text-white hover:bg-blue-600 border-transparent'}`}
                 >
                     Next
                 </button>

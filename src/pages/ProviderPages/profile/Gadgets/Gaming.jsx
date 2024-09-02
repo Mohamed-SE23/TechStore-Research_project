@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Profile = () => {
+const Gaming = () => {
   return (
     <div>
-      Profile
+      Gaming & VR
     </div>
   )
 }
 
-export default Profile;
+export default Gaming;

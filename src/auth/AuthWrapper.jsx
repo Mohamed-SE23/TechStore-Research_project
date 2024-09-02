@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { RenderMenu } from "../components/structure/RenderNavbar";
 import { RenderRoutes } from "./Routes";
 
@@ -9,7 +9,9 @@ export const AuthData = () => useContext(AuthContext);
 
 export const AuthWrapper = () => {
 
+    const navigate = useNavigate();
     const [ showNav, setShowNav ] = useState(true);
+    
 
     const location = useLocation();
     useEffect(() => {
@@ -28,10 +30,19 @@ export const AuthWrapper = () => {
 
         return setUser({name: userName, isAuthenticated: true});
     }
-
+    // logout function 
     const logout = () => {
         setUser({...user, isAuthenticated: false});
+        console.log('User is being logged out ...');
     }
+
+    useEffect(() => {
+        if (!user.isAuthenticated && window.location.pathname !== '/') {
+            console.log("Navigating to home page..."); // Debugging log
+          navigate('/');
+        }
+      }, [user.isAuthenticated]);
+    
 
     return (
 

@@ -22,6 +22,7 @@ const CustomerRegister = ({ onBackClick }) => {
     if (!formData.email) newErrors.email = 'Email is required';
     if (!formData.phone) newErrors.phone = 'Phone number is required';
     if (!formData.location) newErrors.location = 'please select a location';
+    if (Object.keys(formData.password).length < 8) newErrors.password = 'Password must be at least 8 characters';
     if (!formData.password) newErrors.password = 'Password is required';
     if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = 'Passwords must match';
 

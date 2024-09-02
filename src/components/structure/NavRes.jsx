@@ -6,6 +6,7 @@ export const Menu = () => {
 
     const { user, logout } = AuthData();
 
+
     const MenuItem = ({r}) => {
         return (
             <div className=' hover:text-[#FF7A57] focus:text-[#FF7A57] active:text-[#FF7A57] transition duration-300 ease-in-out'>
@@ -31,8 +32,8 @@ export const Menu = () => {
 
                 { user.isAuthenticated ?
                 <div className='btn-primary'>
-                                    <Link to={'#'} onClick={logout}>Log out</Link>
-                                </div>
+                    <Link to={'#'} onClick={logout}>Log out</Link>
+                </div>
                 :
                 <div className='flex space-x-4 items-center'>
                     <div className='btn-secondary'>

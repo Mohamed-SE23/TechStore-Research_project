@@ -66,11 +66,11 @@ const SignInPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col gap-8 px-10 items-center justify-center bg-gray-100">
-      <div>
+    <div className="flex flex-col gap-8 px-10 items-center justify-center">
+      <div className='mt-10'>
         <Brand />
       </div>
-      <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-md">
+      <div className="max-w-md w-full bg-white p-8 rounded-lg border border-[#ff7a57] shadow-md">
         <h2 className="text-center text-3xl font-bold text-gray-700 mb-6">Sign In</h2>
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>

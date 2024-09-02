@@ -11,6 +11,7 @@ const ProviderFormStepOne = ({ formData, handleChange, onNextClick, onBackClick 
       if (!formData.phone) newErrors.phone = 'Phone number is required';
       if (!formData.storeName) newErrors.storeName = 'Store Name is required';
       if (!formData.storeLocation) newErrors.storeLocation = 'Store Location is required';
+      if (Object.keys(formData.password).length < 8) newErrors.password = 'Password must be at least 8 characters';
       if (!formData.password) newErrors.password = 'Password is required';
       if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = 'Passwords must match';
   
