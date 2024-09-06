@@ -12,9 +12,9 @@ import UsbDesks from "./Gadgets/UsbDesks";
 export const providerProfile = [
     { path: "/computers",           menuPath: "/profile/gadgets/computers",                       name: "Computers",                  element: <Computers /> },
     { path: "/laptops",             menuPath: "/profile/gadgets/laptops",                         name: "Laptops",                    element: <Laptops /> },
-    { path: "/cameras",             menuPath: "/profile/gadgets/cameras",                         name: "Cameras",                    element: <Cameras /> },
     { path: "/audio",               menuPath: "/profile/gadgets/audio",                           name: "Audio",                      element: <Audio /> },
     { path: "/gaming",              menuPath: "/profile/gadgets/gaming",                          name: "Gaming",                     element: <Gaming /> },
+    { path: "/photography",         menuPath: "/profile/gadgets/photography",                     name: "Photography",                element: <Cameras /> },
     { path: "/usbDesks",            menuPath: "/profile/gadgets/usbDesks",                        name: "USB Desks",                  element: <UsbDesks /> },
     { path: "/headPhones",          menuPath: "/profile/gadgets/headPhones",                      name: "Head Phones",                element: <HeadPhones /> },
     { path: "/techAccessories",     menuPath: "/profile/gadgets/techAccessories",                 name: "Tech Accessories",           element: <TechAccessories /> },

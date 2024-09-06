@@ -5,6 +5,7 @@ import Brand from '../../components/structure/brand';
 
 const CustomerRegister = ({ onBackClick }) => {
   const [formData, setFormData] = useState({
+    type: 'customer',
     username: '',
     email: '',
     phone: '',

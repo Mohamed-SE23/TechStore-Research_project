@@ -4,6 +4,7 @@ import ProviderFormStepTwo from './ProviderFormStepTwo';
 
 const ProviderRegistration = ({onBackClick}) => {
   const [formData, setFormData] = useState({
+    type: 'provider',
     username: '',
     email: '',
     phone: '',

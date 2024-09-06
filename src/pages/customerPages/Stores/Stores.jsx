@@ -1,7 +1,7 @@
 import React from 'react'
-import Hero from '../../components/reusable/Hero';
-import Title from '../../components/reusable/title';
-import SearchField from '../../components/reusable/Search';
+import Hero from '../../../components/reusable/Hero';
+import Title from '../../../components/reusable/title';
+import SearchField from '../../../components/reusable/Search';
 
 const Stores = () => {
   return (

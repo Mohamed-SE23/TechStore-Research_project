@@ -59,19 +59,19 @@ const ProductSettings = () => {
         <div className="flex space-x-2">
           <button 
               onClick={handleCreate}
-              className="bg-blue-500 text-white px-4 py-2 rounded">Create Product</button>
-          <button className="bg-green-500 text-white px-4 py-2 rounded" onClick={fetchProducts}>Refresh</button>
+              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Create Product</button>
+          <button className="btn-secondary px-4 py-2 rounded font-semibold" onClick={fetchProducts}>Refresh</button>
         </div>
         <div className="flex items-center space-x-2">
           <input
             type="text"
-            placeholder="Search..."
+            placeholder="Search by name..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="px-4 py-2 border rounded"
           />
           <button
-            className={`flex items-center justify-center border px-4 py-2 active:outline-none rounded ${!searchTerm ? 'text-gray-300' : 'text-[#ff7a57] border-[#ff7a57]'}`}
+            className={`flex items-center justify-center border px-4 py-2 active:outline-none rounded ${!searchTerm ? 'text-gray-300' : 'text-[#ff7a57] border-[#ff7a57] hover:text-white hover:bg-[#ff7a57]'}`}
             onClick={handleSearch}
           >
             Search
@@ -89,6 +89,7 @@ const ProductSettings = () => {
               <th className="text-left py-3 px-4 uppercase font-bold text-sm">Brand</th>
               <th className="text-left py-3 px-4 uppercase font-bold text-sm">Category</th>
               <th className="text-left py-3 px-4 uppercase font-bold text-sm">Price</th>
+              <th className="text-left py-3 px-4 uppercase font-bold text-sm">Delivery</th>
               <th className="text-left py-3 px-4 uppercase font-bold text-sm">Image</th>
               <th className="text-left py-3 px-4 uppercase font-bold text-sm">Created At</th>
               <th className="text-left py-3 uppercase font-bold text-sm">Action</th>
@@ -102,6 +103,7 @@ const ProductSettings = () => {
                   <td className="py-3 px-4">hp</td>
                   <td className="py-3 px-4">laptop</td>
                   <td className="py-3 px-4">885</td>
+                  <td className="py-3 px-4">yes</td>
                   <td className="py-3 px-4">
                     <img src={laptop} alt="name" className="h-16 w-16 rounded object-cover" />
                   </td>
@@ -112,7 +114,7 @@ const ProductSettings = () => {
                         className="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded mr-2">Edit</button>
                     <button 
                         onClick={handleDelete}
-                        className="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded">Delete</button>
+                        className="btn-primary">Delete</button>
                   </td>
                 </tr>
             <tr className="hover:bg-gray-100 border-b-2">
@@ -121,6 +123,7 @@ const ProductSettings = () => {
                   <td className="py-3 px-4">hp</td>
                   <td className="py-3 px-4">laptop</td>
                   <td className="py-3 px-4">885</td>
+                  <td className="py-3 px-4">yes</td>
                   <td className="py-3 px-4">
                     <img src={laptop} alt="name" className="h-16 w-16 rounded object-cover" />
                   </td>
@@ -129,7 +132,7 @@ const ProductSettings = () => {
                     <button 
                         onClick={handleEdit}
                         className="bg-blue-500 text-white px-2 py-1 rounded mr-2">Edit</button>
-                    <button className="bg-red-500 text-white px-2 py-1 rounded">Delete</button>
+                    <button className="btn-primary">Delete</button>
                   </td>
                 </tr>
             <tr className="hover:bg-gray-100 border-b-2">
@@ -138,6 +141,7 @@ const ProductSettings = () => {
                   <td className="py-3 px-4">hp</td>
                   <td className="py-3 px-4">laptop</td>
                   <td className="py-3 px-4">885</td>
+                  <td className="py-3 px-4">No</td>
                   <td className="py-3 px-4">
                     <img src={laptop} alt="name" className="h-16 w-16 rounded object-cover" />
                   </td>
@@ -146,7 +150,7 @@ const ProductSettings = () => {
                     <button 
                         onClick={handleEdit}
                         className="bg-blue-500 text-white px-2 py-1 rounded mr-2">Edit</button>
-                    <button className="bg-red-500 text-white px-2 py-1 rounded">Delete</button>
+                    <button className="btn-primary">Delete</button>
                   </td>
                 </tr>
             {/* {products.map((product) => (
@@ -156,6 +160,7 @@ const ProductSettings = () => {
                 <td className="py-3 px-4">{product.brand}</td>
                 <td className="py-3 px-4">{product.category}</td>
                 <td className="py-3 px-4">{product.price}</td>
+                <td className="py-3 px-4">{product.delivery ? "Yes" : "No"}</td>
                 <td className="py-3 px-4">
                   <img src={product.image} alt={product.name} className="h-16 w-16 rounded object-cover" />
                 </td>
