@@ -16,7 +16,7 @@ const MediumScreens = ({ MenuItem, dropdownOpen, closeDropdown, toggleDropdown, 
                 <div className=" relative flex justify-end">
                     <button
                         onClick={toggleDropdown}
-                        className="flex items-center space-x-1 hover:text-[#FF7A57] focus:text-[#FF7A57] active:text-[#FF7A57] transition duration-300 ease-in-out"
+                        className="flex items-center space-x-1 hover:text-[#FF7A57] transition duration-300 ease-in-out"
                     >
                         <p>More</p><span className='font-bold text-lg'>{ dropdownOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}</span>
                     </button>

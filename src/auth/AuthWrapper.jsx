@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { RenderMenu } from "../components/structure/RenderNavbar";
 import { RenderRoutes } from "./Routes";
+import Cart from "../pages/customerPages/cart/Cart";
 
 const AuthContext = createContext();
 export const AuthData = () => useContext(AuthContext);
@@ -23,7 +24,7 @@ export const AuthWrapper = () => {
         }
 
     }, [location]);
-    const [ user, setUser ] = useState({name: "Mohamed", type: "customer", isAuthenticated: true});
+    const [ user, setUser ] = useState({name: "userName", type: "customer", isAuthenticated: true});
 
     const login = (userName, password) => {
         // login function as testing i will try static
@@ -48,6 +49,7 @@ export const AuthWrapper = () => {
 
         <AuthContext.Provider value={{user, login, logout}}>
             {showNav && <RenderMenu />}
+            {user.type === 'customer' &&  <Cart />}
             <RenderRoutes />
         </AuthContext.Provider>
     )

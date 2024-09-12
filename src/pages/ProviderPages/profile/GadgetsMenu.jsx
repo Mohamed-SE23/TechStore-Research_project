@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { providerProfile } from './GadgetsNav';
 import LargeScreen from './menuResponsive/LargeScreen';
 import MediumScreens from './menuResponsive/MediumScreens';
@@ -31,9 +31,16 @@ const GadgetsMenu = () => {
 
     const MenuItem = ({r}) => {
         return (
-            <div className=' hover:text-[#FF7A57] focus:text-[#FF7A57] active:text-[#FF7A57] transition duration-300 ease-in-out'>
-                <Link to={r.menuPath}>{r.name}</Link>
-            </div>
+            <NavLink
+                to={r.menuPath}
+                className={({ isActive }) =>
+                isActive
+                    ? 'text-[#FF7A57] transition duration-300 ease-in-out'
+                    : 'hover:text-[#FF7A57] transition duration-300 ease-in-out'
+                }
+             >
+                {r.name}
+          </NavLink>
         )
     }
     

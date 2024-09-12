@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { AuthData } from '../../auth/AuthWrapper';
 import { providerNav } from './Navbar';
 
@@ -8,9 +8,16 @@ export const ProviderMenu = () => {
 
     const MenuItem = ({r}) => {
         return (
-            <div className=' hover:text-[#FF7A57] focus:text-[#FF7A57] active:text-[#FF7A57] transition duration-300 ease-in-out'>
-                <Link to={r.path}>{r.name}</Link>
-            </div>
+            <NavLink
+            to={r.path}
+            className={({ isActive }) =>
+              isActive
+                ? 'text-[#FF7A57] transition duration-300 ease-in-out'
+                : 'hover:text-[#FF7A57] transition duration-300 ease-in-out'
+            }
+          >
+            {r.name}
+          </NavLink>
         )
     }
 

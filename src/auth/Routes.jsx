@@ -29,7 +29,7 @@ export const RenderRoutes = () => {
             })
             }
             {/* Profile Route with nested gadgets */}
-            <Route path="/profile/" element={<Profile />}>
+            <Route path={`/${user.name}/profile/`} element={<Profile />}>
                 <Route path="gadgets/*" element={<GadgetsRoutes />} />
             </Route>
         </Routes>

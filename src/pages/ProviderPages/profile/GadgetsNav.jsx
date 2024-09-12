@@ -8,15 +8,17 @@ import Office from "./Gadgets/Office";
 import TechAccessories from "./Gadgets/TechAccessories";
 import UsbDesks from "./Gadgets/UsbDesks";
 
+const user = { name: 'userName'}
+
 
 export const providerProfile = [
-    { path: "/computers",           menuPath: "/profile/gadgets/computers",                       name: "Computers",                  element: <Computers /> },
-    { path: "/laptops",             menuPath: "/profile/gadgets/laptops",                         name: "Laptops",                    element: <Laptops /> },
-    { path: "/audio",               menuPath: "/profile/gadgets/audio",                           name: "Audio",                      element: <Audio /> },
-    { path: "/gaming",              menuPath: "/profile/gadgets/gaming",                          name: "Gaming",                     element: <Gaming /> },
-    { path: "/photography",         menuPath: "/profile/gadgets/photography",                     name: "Photography",                element: <Cameras /> },
-    { path: "/usbDesks",            menuPath: "/profile/gadgets/usbDesks",                        name: "USB Desks",                  element: <UsbDesks /> },
-    { path: "/headPhones",          menuPath: "/profile/gadgets/headPhones",                      name: "Head Phones",                element: <HeadPhones /> },
-    { path: "/techAccessories",     menuPath: "/profile/gadgets/techAccessories",                 name: "Tech Accessories",           element: <TechAccessories /> },
-    { path: "/office",              menuPath: "/profile/gadgets/office",                          name: "Office & Productivity",      element: <Office /> },
+    { path: "/computers",           menuPath: `/${user.name}/profile/gadgets/computers`,                       name: "Computers",                  element: <Computers /> },
+    { path: "/laptops",             menuPath: `/${user.name}/profile/gadgets/laptops`,                         name: "Laptops",                    element: <Laptops /> },
+    { path: "/audio",               menuPath: `/${user.name}/profile/gadgets/audio`,                           name: "Audio",                      element: <Audio /> },
+    { path: "/gaming",              menuPath: `/${user.name}/profile/gadgets/gaming`,                          name: "Gaming",                     element: <Gaming /> },
+    { path: "/photography",         menuPath: `/${user.name}/profile/gadgets/photography`,                     name: "Photography",                element: <Cameras /> },
+    { path: "/usbDesks",            menuPath: `/${user.name}/profile/gadgets/usbDesks`,                        name: "USB Desks",                  element: <UsbDesks /> },
+    { path: "/headPhones",          menuPath: `/${user.name}/profile/gadgets/headPhones`,                      name: "Head Phones",                element: <HeadPhones /> },
+    { path: "/techAccessories",     menuPath: `/${user.name}/profile/gadgets/techAccessories`,                 name: "Tech Accessories",           element: <TechAccessories /> },
+    { path: "/office",              menuPath: `/${user.name}/profile/gadgets/office`,                          name: "Office & Productivity",      element: <Office /> },
 ]

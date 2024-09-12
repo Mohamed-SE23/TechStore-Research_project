@@ -1,20 +1,43 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { AuthData } from '../../auth/AuthWrapper';
 import { nav } from './Navbar';
+import CartNav from './CartNav';
+import { setOpenCart } from '../../app/CartSlice.js';
 
 export const Hamburger = () => {
     const { user, logout } = AuthData();
 
     const [isOpen, setIsOpen] = useState(false);
+    const dispatch = useDispatch();
 
+
+    // toggle hamburger menu
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
 
-    const MenuItem = ({r}) => {
+    // toggle cart menu
+    const onCartToggle = () => {
+        dispatch(setOpenCart({
+            cartState: true
+        }))
+    }
+
+    const MenuItem = ({r, onClick}) => {
         return (
-            <div className='hover:bg-gray-700 hover:text-slate-100 rounded px-3 py-1'><Link to={r.path}>{r.name}</Link></div>
+            <NavLink
+                onClick={onClick}
+                to={r.path}
+                className={({ isActive }) =>
+                isActive
+                    ? 'text-[#FF7A57] transition duration-300 ease-in-out'
+                    : 'hover:text-[#FF7A57] transition duration-300 ease-in-out'
+                }
+            >
+                {r.name}
+          </NavLink>
         )
     }
 
@@ -44,17 +67,34 @@ export const Hamburger = () => {
 
                         if (!r.isPrivate && r.isMenu) {
                             return (
-                                <MenuItem key={i} r={r} />
+                                <MenuItem 
+                                        onClick={toggleMenu} 
+                                        key={i} 
+                                        r={r} />
                             )
                         } else if (user.isAuthenticated && r.isMenu) {
+                            if (r.name === 'Cart') {
+                                return (
+                                    <div onClick={toggleMenu}>
+                                        <CartNav 
+                                            onCartToggle={onCartToggle} 
+                                            key={i} 
+                                    />
+                                    </div>
+                                )
+                            }
                             return (
-                                <MenuItem key={i} r={r} />
-                            )
+                                <MenuItem 
+                                        onClick={toggleMenu} 
+                                        key={i} 
+                                        r={r} />)
                         } else return false
                     })}
 
                     { user.isAuthenticated ?
-                    <div className='btn-primary'>
+                    <div 
+                        onClick={toggleMenu} 
+                        className='btn-primary'>
                         <Link to={'#'} onClick={logout}>Log out</Link>
                     </div>
                     :

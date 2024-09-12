@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { AuthData } from '../../auth/AuthWrapper';
 import { providerNav } from './Navbar';
 
@@ -12,9 +12,19 @@ export const ProviderHum = () => {
         setIsOpen(!isOpen);
     };
 
-    const MenuItem = ({r}) => {
+    const MenuItem = ({r, onClick}) => {
         return (
-            <div className='hover:bg-gray-700 hover:text-slate-100 rounded px-3 py-1'><Link to={r.path}>{r.name}</Link></div>
+            <NavLink
+                onClick={onClick}
+                to={r.path}
+                className={({ isActive }) =>
+                isActive
+                    ? 'text-[#FF7A57] transition duration-300 ease-in-out'
+                    : 'hover:text-[#FF7A57] transition duration-300 ease-in-out'
+                }
+            >
+                {r.name}
+          </NavLink>
         )
     }
 
@@ -42,19 +52,27 @@ export const ProviderHum = () => {
                 <div className='hidden bg-white shadow-lg px-8 pb-5 md:flex md:flex-col space-y-2 items-center md:text-sm sm:text-xs'>
                     { providerNav.map((r, i) => {
 
-                        if (!r.isPrivate && r.isMenu) {
+                        if (!r.isPrivate && r.isMenu && !user.isAuthenticated) {
                             return (
-                                <MenuItem key={i} r={r} />
+                                <MenuItem 
+                                    onClick={toggleMenu}
+                                    key={i} 
+                                    r={r} />
                             )
-                        } else if (user.isAuthenticated && r.isMenu) {
+                        } else if (r.isPrivate && r.isMenu && user.isAuthenticated) {
                             return (
-                                <MenuItem key={i} r={r} />
+                                <MenuItem 
+                                    onClick={toggleMenu}
+                                    key={i} 
+                                    r={r} />
                             )
                         } else return false
                     })}
 
                     { user.isAuthenticated ?
-                    <div className='btn-primary'>
+                    <div
+                        onClick={toggleMenu}
+                        className='btn-primary'>
                         <Link to={'#'} onClick={logout}>Log out</Link>
                     </div>
                     :
