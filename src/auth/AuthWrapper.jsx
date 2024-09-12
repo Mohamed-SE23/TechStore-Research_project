@@ -24,7 +24,7 @@ export const AuthWrapper = () => {
         }
 
     }, [location]);
-    const [ user, setUser ] = useState({name: "userName", type: "customer", isAuthenticated: true});
+    const [ user, setUser ] = useState({name: "userName", type: "customer", isAuthenticated: false});
 
     const login = (userName, password) => {
         // login function as testing i will try static
