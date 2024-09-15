@@ -25,7 +25,7 @@ const CartSlice = createSlice({
                 state.cartItems[itemIndex].cartQuantity += 1;
                 toast.success(`${action.payload.title} Quantity Increased`);
             } else {
-                const temp = { ...action.payload, cartQuantity: 1}
+                const temp = { ...action.payload, cartQuantity: 1, confirmed: false };
                 state.cartItems.push(temp);
                 toast.success(`${action.payload.title} Added to Cart`);
             }
@@ -84,11 +84,22 @@ const CartSlice = createSlice({
 
             state.cartTotalAmount = totalAmount;
             state.cartTotalQTY = totalQTY;
-        }
+        },
+        // New Reducer to confirm an item
+        setConfirmItem: (state, action) => {
+            const itemIndex = state.cartItems.findIndex((item) => item.id === action.payload.id);
+
+            if (itemIndex >= 0) {
+                state.cartItems[itemIndex].confirmed = true; // Set confirmed to true
+                toast.success(`${action.payload.title} Confirmed`);
+            }
+
+            localStorage.setItem("cart", JSON.stringify(state.cartItems));
+        },
     }
 });
 
-export const { setOpenCart, setCloseCart, setAddItemToCart, setRemoveItemFromCart, setIncreaseItemQTY, setDecreaseItemQTY, setClearCartItems, setGetTotals } = CartSlice.actions;
+export const { setOpenCart, setCloseCart, setAddItemToCart, setRemoveItemFromCart, setIncreaseItemQTY, setDecreaseItemQTY, setClearCartItems, setGetTotals, setConfirmItem } = CartSlice.actions;
 
 export const selectCartState = (state) => state.cart.cartState;
 export const selectCartItems = (state) => state.cart.cartItems;

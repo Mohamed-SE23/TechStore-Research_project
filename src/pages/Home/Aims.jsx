@@ -17,10 +17,12 @@ const Aims = () => {
         { aimItem.map((aim, i) => {
             return (
 
-                <div className='flex flex-col items-center space-y-4 p-8 h-full shadow-md
+                <div
+                     key={i}
+                     className='flex flex-col items-center space-y-4 p-8 h-full shadow-md
                                 lg:flex-row lg:items-center lg:space-x-8 sm:flex-col sm:space-x-0'>
 
-                    <img className='w-auto h-[122px]' key={i} src={aim.img} alt={aim.title} />
+                    <img className='w-auto h-[122px]' src={aim.img} alt={aim.title} />
 
                     <div className=''>
                         <h1 className='text-xl font-bold text-center text-[#333] mb-5 lg:text-start md:text-md sm:text-center sm:text-sm'>

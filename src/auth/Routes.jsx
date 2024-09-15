@@ -1,56 +1,62 @@
-import { Route, Routes } from 'react-router-dom';
-import { AuthData } from './AuthWrapper';
-import { nav } from '../components/structure/Navbar';
-import { providerNav } from '../components/structure/Navbar';
-import { providerProfile } from '../pages/ProviderPages/profile/GadgetsNav';
-import Profile from '../pages/ProviderPages/profile/Profile';
+import React, { Suspense } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { AuthData } from "./AuthWrapper";
+import { nav } from "../components/structure/Navbar";
+import { providerNav } from "../components/structure/Navbar";
+import Loading from "../components/reusable/Loading";
 
 // ******************** Rendering Routes depending on the navbar element ***************************
 
 export const RenderRoutes = () => {
-    const { user } = AuthData();
+  const { user } = AuthData();
+  const location = useLocation();
+  const isCOwner = true;
+  const isPOwner = true;
 
-    return (
-        <Routes>
-            { nav.map((r, i) => {
+  const pageVariants = {
+    initial: { opacity: 0, x: 300 },
+    in: { opacity: 1, x: 0 },
+    out: { opacity: 0, x: -300 },
+  };
 
-                if (r.isPrivate && user.isAuthenticated && user.type === 'customer') {
-                    return <Route key={i} path={r.path} element={r.element} />;
-                } else if (!r.isPrivate) {
-                    return <Route key={i} path={r.path} element={r.element} />;
-                } else return false
+  const pageTransition = {
+    type: "spring",
+    ease: "anticipate",
+    duration: 0.5,
+  };
 
-            })
-            }
-            { providerNav.map((r, i) => {
-                if (r.isPrivate && user.isAuthenticated && user.type === 'provider') {
-                    return <Route key={i} path={r.path} element={r.element} />;
-                }
-            })
-            }
-            {/* Profile Route with nested gadgets */}
-            <Route path={`/${user.name}/profile/`} element={<Profile />}>
-                <Route path="gadgets/*" element={<GadgetsRoutes />} />
-            </Route>
-        </Routes>
-    )
-}
-
-// ---------------------------- Profile Gadgets Routes ------------------------------------
-
-export const GadgetsRoutes = () => {
-    const { user } = AuthData();
-
-    console.log("GadgetsRoutes: user.isAuthenticated =", user.isAuthenticated);
-    console.log("GadgetsRoutes: user.type =", user.type);
-
-    return (
-        <Routes>
-            { providerProfile.map((r, i) => {
-                if (user.isAuthenticated && user.type === 'provider') {
-                    return <Route key={i} path={r.path} element={r.element} />;         
-                } else return false;
+  return (
+    <AnimatePresence mode="wait" initial={false}>
+      <motion.div
+        key={location.key}
+        initial="initial"
+        animate="in"
+        exit="out"
+        variants={pageVariants}
+        transition={pageTransition}
+      >
+        <Suspense fallback={<Loading />}>
+          <Routes location={location} key={location.pathname}>
+            {nav.map((r, i) => {
+              if (r.isPrivate && user.isAuthenticated && isCOwner) {
+                return <Route key={i} path={r.path} element={r.element} />;
+              } else if (!r.isPrivate) {
+                return <Route key={i} path={r.path} element={r.element} />;
+              } else return false;
             })}
-        </Routes>
-    )
-}
+            {providerNav.map((r, i) => {
+              if (r.isPrivate && user.isAuthenticated) {
+                if (isPOwner && r.name !== "Profile") {
+                  return <Route key={i} path={r.path} element={r.element} />;
+                } else if (r.name === "Profile") {
+                  return <Route key={i} path={r.path} element={r.element} />;
+                }
+              }
+            })}
+          </Routes>
+        </Suspense>
+      </motion.div>
+    </AnimatePresence>
+  );
+};

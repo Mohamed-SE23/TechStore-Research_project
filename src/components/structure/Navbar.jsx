@@ -1,20 +1,23 @@
-import Home             from '../../pages/Home/Home';
-import About            from '../../pages/About/About';
-import Stores           from '../../pages/customerPages/Stores/Stores';
-import Categories       from '../../pages/customerPages/Categories/Categories';
-import Sign             from '../../pages/Signing/sign';
-import Register         from '../../pages/register/register';
-import Profile          from '../../pages/ProviderPages/profile/Profile';
-import ProductSettings  from '../../pages/ProviderPages/Products/ProductSettings';
-import Orders           from '../../pages/ProviderPages/Orders';
-import CreateProduct    from '../../pages/ProviderPages/Products/CreateProduct';
-import EditProduct      from '../../pages/ProviderPages/Products/EditProduct';
-import NotFound         from '../../pages/NotFound';
-import CustomerSettings from '../../pages/customerPages/AccountSettings/CustomerSettings';
-import ProviderSettings from '../../pages/ProviderPages/AccountSettings/ProviderSettings';
-import Cart             from '../../pages/customerPages/cart/Cart';
+import React , { lazy }       from 'react';
+
+const Home                  = lazy(() => import('../../pages/Home/Home'));
+const About                 = lazy(() => import('../../pages/About/About'));
+const Stores                = lazy(() => import('../../pages/customerPages/Stores/Stores'));
+const Categories            = lazy(() => import('../../pages/customerPages/Categories/Categories'));
+const Sign                  = lazy(() => import('../../pages/Signing/sign'));
+const Register              = lazy(() => import('../../pages/register/register'));
+const Profile               = lazy(() => import('../../pages/ProviderPages/profile/Profile'));
+const ProductSettings       = lazy(() => import('../../pages/ProviderPages/Products/ProductSettings'));
+const Orders                = lazy(() => import('../../pages/ProviderPages/Orders'));
+const CreateProduct         = lazy(() => import('../../pages/ProviderPages/Products/CreateProduct'));
+const EditProduct           = lazy(() => import('../../pages/ProviderPages/Products/EditProduct'));
+const NotFound              = lazy(() => import('../../pages/NotFound'));
+const CustomerSettings      = lazy(() => import('../../pages/customerPages/AccountSettings/CustomerSettings'));
+const ProviderSettings      = lazy(() => import('../../pages/ProviderPages/AccountSettings/ProviderSettings'));
+const Cart                  = lazy(() => import('../../pages/customerPages/cart/Cart'));
 
 const user = {name: 'userName'};
+const ProUser = {name: 'proUserName'}
 
 
 export const nav = [
@@ -31,14 +34,14 @@ export const nav = [
 ]
 
 export const providerNav = [
-    { path: "/",                                        name: "Home",                   element: <Home /> ,              isMenu: true,        isPrivate: false },
-    { path: "/about",                                   name: "About",                  element: <About />,              isMenu: true,        isPrivate: false },
-    { path: "/sign",                                    name: "Sign in",                element: <Sign />,               isMenu: false,       isPrivate: false },
-    { path: "/register",                                name: "Register",               element: <Register />,           isMenu: false,       isPrivate: false },
-    { path: `${user.name}/orders`,                      name: "Orders",                 element: <Orders />,             isMenu: true,        isPrivate: true },
-    { path: `${user.name}/profile/`,                    name: "Profile",                element: <Profile />,            isMenu: true,        isPrivate: true },
-    { path: `${user.name}/productSettings`,             name: "Products Settings",      element: <ProductSettings />,    isMenu: true,        isPrivate: true },
-    { path: `${user.name}/providerAccount`,             name: "Account",                element: <ProviderSettings />,   isMenu: true,        isPrivate: true },
-    { path: `${user.name}/productSettings/create`,      name: "Create Product",         element: <CreateProduct />,      isMenu: false,        isPrivate: true },
-    { path: `${user.name}/productSettings/edit`,        name: "Edit Product",           element: <EditProduct />,        isMenu: false,        isPrivate: true },
+    { path: "/",                                           name: "Home",                   element: <Home /> ,              isMenu: true,        isPrivate: false },
+    { path: "/about",                                      name: "About",                  element: <About />,              isMenu: true,        isPrivate: false },
+    { path: "/sign",                                       name: "Sign in",                element: <Sign />,               isMenu: false,       isPrivate: false },
+    { path: "/register",                                   name: "Register",               element: <Register />,           isMenu: false,       isPrivate: false },
+    { path: `${ProUser.name}/orders`,                      name: "Orders",                 element: <Orders />,             isMenu: true,        isPrivate: true },
+    { path: `${ProUser.name}/profile`,                     name: "Profile",                element: <Profile />,            isMenu: true,        isPrivate: true },
+    { path: `${ProUser.name}/productSettings`,             name: "Products Settings",      element: <ProductSettings />,    isMenu: true,        isPrivate: true },
+    { path: `${ProUser.name}/providerAccount`,             name: "Account",                element: <ProviderSettings />,   isMenu: true,        isPrivate: true },
+    { path: `${ProUser.name}/productSettings/create`,      name: "Create Product",         element: <CreateProduct />,      isMenu: false,        isPrivate: true },
+    { path: `${ProUser.name}/productSettings/edit`,        name: "Edit Product",           element: <EditProduct />,        isMenu: false,        isPrivate: true },
 ]

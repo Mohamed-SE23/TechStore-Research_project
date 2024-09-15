@@ -55,15 +55,15 @@ export const ProviderHum = () => {
                         if (!r.isPrivate && r.isMenu && !user.isAuthenticated) {
                             return (
                                 <MenuItem 
-                                    onClick={toggleMenu}
                                     key={i} 
+                                    onClick={toggleMenu}
                                     r={r} />
                             )
                         } else if (r.isPrivate && r.isMenu && user.isAuthenticated) {
                             return (
                                 <MenuItem 
-                                    onClick={toggleMenu}
                                     key={i} 
+                                    onClick={toggleMenu}
                                     r={r} />
                             )
                         } else return false

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthData } from '../../../auth/AuthWrapper';
 
 const EditProduct = () => {
   const [product, setProduct] = useState({
@@ -11,6 +12,7 @@ const EditProduct = () => {
     image: null,
   });
   const navigate = useNavigate();
+  const { user } = AuthData();
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -27,7 +29,7 @@ const EditProduct = () => {
   };
 
   const handleCancel = () => {
-    navigate('/productSettings');
+    navigate(`/${user.name}/productSettings`);
   };
 
   return (

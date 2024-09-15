@@ -12,19 +12,19 @@ export const AuthWrapper = () => {
 
     const navigate = useNavigate();
     const [ showNav, setShowNav ] = useState(true);
-    
+    const [ user, setUser ] = useState({name: "proUserName", type: "customer", isAuthenticated: true});
+    const isPOwner = true
 
     const location = useLocation();
+
     useEffect(() => {
-        console.log("this is location", location)
-        if (location.pathname === '/sign' || location.pathname === '/register') {
+        if (location.pathname === '/sign' || location.pathname === '/register' || (user.isAuthenticated && !isPOwner)) {
             setShowNav(false);
         } else {
             setShowNav(true);
         }
 
     }, [location]);
-    const [ user, setUser ] = useState({name: "userName", type: "customer", isAuthenticated: false});
 
     const login = (userName, password) => {
         // login function as testing i will try static
@@ -39,7 +39,6 @@ export const AuthWrapper = () => {
 
     useEffect(() => {
         if (!user.isAuthenticated && window.location.pathname !== '/') {
-            console.log("Navigating to home page..."); // Debugging log
           navigate('/');
         }
       }, [user.isAuthenticated]);

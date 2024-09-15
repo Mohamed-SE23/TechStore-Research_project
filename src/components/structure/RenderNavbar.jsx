@@ -8,7 +8,6 @@ import { ProviderMenu } from './ProviderNav';
 
 export const RenderMenu = () => {
     const { user } = AuthData();
-    console.log(user.type)
 
     return (
         <>

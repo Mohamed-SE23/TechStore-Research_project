@@ -29,9 +29,11 @@ const Features = () => {
             <div className='md:flex-col md:space-y-16'>
               { Ufeatures.map((item, i) => {
                 return (
-                  <div className='flex flex-row-reverse items-center gap-14 w-[65%] mb-16 p-8 shadow-lg rounded [&:nth-child(2)]:ml-auto
+                  <div 
+                        key={i}
+                        className='flex flex-row-reverse items-center gap-14 w-[65%] mb-16 p-8 shadow-lg rounded [&:nth-child(2)]:ml-auto
                                   lg:gap-4 md:flex-col md:m-auto md:w-[85%]'>
-                    <img key={i} src={item.img} alt={item.title} className='h-[120px] w-auto lg:h-[160px]' />
+                    <img src={item.img} alt={item.title} className='h-[120px] w-auto lg:h-[160px]' />
                     <div>
                       <h1 className='text-[#575757] mb-2 text-xl font-semibold
                                       lg:text-lg'>
@@ -52,9 +54,11 @@ const Features = () => {
             <div className='flex flex-col items-center justify-center w-[90%] mx-auto mt-20 md:flex-col md:space-y-16'>
               { Bfeatures.map((item, i) => {
                 return (
-                  <div className='flex flex-row-reverse items-center gap-14 w-[65%] mb-16 p-8 shadow-md border border-[#ff7a57] rounded
+                  <div 
+                        key={i}
+                        className='flex flex-row-reverse items-center gap-14 w-[65%] mb-16 p-8 shadow-md border border-[#ff7a57] rounded
                                  lg:gap-4 md:flex-col md:m-auto md:w-[85%]'>
-                    <img key={i} src={item.img} alt={item.title} className='h-[120px] w-auto' />
+                    <img src={item.img} alt={item.title} className='h-[120px] w-auto' />
                     <div>
                       <h1 className='text-[#575757] mb-2 text-xl font-semibold lg:text-lg'>{item.title}</h1>
                       <p  className='text-[#575757] md:text-sm'>{item.description}</p>

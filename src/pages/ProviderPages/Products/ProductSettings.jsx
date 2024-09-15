@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 // import axios from 'axios';
 import laptop from '../../../assets/laptop.jpg'
+import { AuthData } from '../../../auth/AuthWrapper';
 
 const ProductSettings = () => {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
+  const { user } = AuthData();
 
   useEffect(() => {
     fetchProducts();
@@ -23,14 +25,12 @@ const ProductSettings = () => {
 
   // navigate to create product page 
   const handleCreate = () => {
-    navigate('/productSettings/create');
-    console.log("Creating product...");
+    navigate(`/${user.name}/productSettings/create`);
   }
 
   // navigate to create product page 
   const handleEdit = () => {
-    navigate('/productSettings/edit');
-    console.log("Editing product...");
+    navigate(`/${user.name}/productSettings/edit`);
   }
 
   // handle Delete function

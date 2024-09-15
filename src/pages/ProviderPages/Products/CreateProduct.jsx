@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthData } from '../../../auth/AuthWrapper';
 
 const CreateProduct = () => {
   const [product, setProduct] = useState({
@@ -12,6 +13,7 @@ const CreateProduct = () => {
     image: null,
   });
   const navigate = useNavigate();
+  const { user } = AuthData();
 
   const handleChange = (e) => {
     const { name, value, type, files, checked } = e.target;
@@ -28,7 +30,7 @@ const CreateProduct = () => {
   };
 
   const handleCancel = () => {
-    navigate('/productSettings');
+    navigate(`/${user.name}/productSettings`);
   };
 
   return (

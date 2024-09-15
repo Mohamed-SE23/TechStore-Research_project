@@ -6,7 +6,7 @@ import MediumScreens from './menuResponsive/MediumScreens';
 import SmallScreens from './menuResponsive/SmallScreens';
 
 
-const GadgetsMenu = () => {
+const GadgetsMenu = ({isActive, setIsActive}) => {
 
     // State to control the dropdown visibility
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -31,16 +31,14 @@ const GadgetsMenu = () => {
 
     const MenuItem = ({r}) => {
         return (
-            <NavLink
+            <div
                 to={r.menuPath}
-                className={({ isActive }) =>
-                isActive
-                    ? 'text-[#FF7A57] transition duration-300 ease-in-out'
-                    : 'hover:text-[#FF7A57] transition duration-300 ease-in-out'
-                }
+                className={`hover:text-[#FF7A57] transition duration-300 ease-in-out ${isActive === r.name ? 'text-[#FF7A57]' :'text-slate-900'}`}
              >
-                {r.name}
-          </NavLink>
+                <button onClick={() => setIsActive(r.name)}>
+                    {r.name}
+                </button>
+          </div>
         )
     }
     
