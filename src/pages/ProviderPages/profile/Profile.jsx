@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
-import { Outlet } from 'react-router-dom';
 import TimeLine from './TimeLine';
 import GadgetsMenu from './GadgetsMenu';
 import NotOwnerHeader from './NotOwnerHeader';
 import { RenderGadgets } from './RenderGadgets';
 
 const Profile = () => {
-  const POwner = false;
+  const POwner = true;
   const [isActive, setIsActive] = useState('Computers');
   return (
     <div>

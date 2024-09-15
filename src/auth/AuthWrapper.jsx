@@ -12,7 +12,7 @@ export const AuthWrapper = () => {
 
     const navigate = useNavigate();
     const [ showNav, setShowNav ] = useState(true);
-    const [ user, setUser ] = useState({name: "proUserName", type: "customer", isAuthenticated: true});
+    const [ user, setUser ] = useState({name: "proUserName", type: "provider", isAuthenticated: true});
     const isPOwner = true
 
     const location = useLocation();
