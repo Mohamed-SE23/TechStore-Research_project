@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 // import axios from 'axios';
-import laptop from '../../../assets/laptop.jpg'
-import { AuthData } from '../../../auth/AuthWrapper';
+import laptop from '../../../assets/laptop.jpg';
+import { IoMdSearch } from "react-icons/io";
 
 const ProductSettings = () => {
   const [products, setProducts] = useState([]);
@@ -59,8 +59,8 @@ const ProductSettings = () => {
         <div className="flex space-x-2">
           <button 
               onClick={handleCreate}
-              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Create Product</button>
-          <button className="btn-secondary px-4 py-2 rounded font-semibold" onClick={fetchProducts}>Refresh</button>
+              className="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded">Create Product</button>
+          <button className="btn-secondary px-1 py-1 rounded font-semibold" onClick={fetchProducts}>Refresh</button>
         </div>
         <div className="flex items-center space-x-2">
           <input
@@ -68,13 +68,13 @@ const ProductSettings = () => {
             placeholder="Search by name..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="px-4 py-2 border rounded"
+            className="px-2 py-1 border rounded"
           />
           <button
-            className={`flex items-center justify-center border px-4 py-2 active:outline-none rounded ${!searchTerm ? 'text-gray-300' : 'text-[#ff7a57] border-[#ff7a57] hover:text-white hover:bg-[#ff7a57]'}`}
+            className={`flex items-center justify-center border px-2 py-1 active:outline-none rounded ${!searchTerm ? 'text-gray-300' : 'text-[#ff7a57] border-[#ff7a57] hover:text-white hover:bg-[#ff7a57]'}`}
             onClick={handleSearch}
           >
-            Search
+            <IoMdSearch className='w-6 h-6' />
           </button>
         </div>
       </div>

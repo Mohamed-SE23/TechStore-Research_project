@@ -18,7 +18,7 @@ export const AuthWrapper = () => {
     const location = useLocation();
 
     useEffect(() => {
-        if (location.pathname === '/sign' || location.pathname === '/register' || (user.isAuthenticated && !isPOwner)) {
+        if (location.pathname === '/sign' || location.pathname === '/register' || location.pathname === '/verifyAccount' || (user.isAuthenticated && !isPOwner)) {
             setShowNav(false);
         } else {
             setShowNav(true);

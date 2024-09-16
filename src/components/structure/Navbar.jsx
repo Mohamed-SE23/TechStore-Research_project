@@ -15,6 +15,7 @@ const NotFound              = lazy(() => import('../../pages/NotFound'));
 const CustomerSettings      = lazy(() => import('../../pages/customerPages/AccountSettings/CustomerSettings'));
 const ProviderSettings      = lazy(() => import('../../pages/ProviderPages/AccountSettings/ProviderSettings'));
 const Cart                  = lazy(() => import('../../pages/customerPages/cart/Cart'));
+const VerificationPage      = lazy(() => import('../../pages/verifications/VerificationPage'));
 
 const user = {name: 'userName'};
 const ProUser = {name: 'proUserName'}
@@ -36,6 +37,7 @@ export const nav = [
 export const providerNav = [
     { path: "/",                                           name: "Home",                   element: <Home /> ,              isMenu: true,        isPrivate: false },
     { path: "/about",                                      name: "About",                  element: <About />,              isMenu: true,        isPrivate: false },
+    { path: "/verifyAccount",                              name: "Verify",                 element: <VerificationPage />,   isMenu: false,       isPrivate: true },
     { path: "/sign",                                       name: "Sign in",                element: <Sign />,               isMenu: false,       isPrivate: false },
     { path: "/register",                                   name: "Register",               element: <Register />,           isMenu: false,       isPrivate: false },
     { path: `${ProUser.name}/orders`,                      name: "Orders",                 element: <Orders />,             isMenu: true,        isPrivate: true },

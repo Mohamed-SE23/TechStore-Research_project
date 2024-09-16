@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Provider from "./provider/provider";
 import CustomerRegister from "./customer";
@@ -7,9 +7,17 @@ const Register = () => {
   const [selectedOption, setSelectedOption] = useState("");
   const [accountType, setAccountType] = useState(""); // Track account type
 
-  // navigate to home page function 
   const navigate = useNavigate();
 
+  // Fetch account type from localStorage on component mount
+  useEffect(() => {
+    const savedAccountType = localStorage.getItem("accountType");
+    if (savedAccountType) {
+      setAccountType(savedAccountType); // Set the accountType from localStorage
+    }
+  }, []);
+
+  // navigate to home page function 
   const handleCancelation = () => {
     navigate('/');
   }
@@ -19,16 +27,18 @@ const Register = () => {
     setSelectedOption(event.target.value);
   };
 
-  // sign selected option to account type
+  // sign selected option to account type and store in localStorage
   const handleNextClick = () => {
     setAccountType(selectedOption);
+    localStorage.setItem("accountType", selectedOption); // Save to localStorage
   };
 
-    // back click function
-
-    const handleBackClick = () => {
-      setAccountType(""); // Reset the account type to show the selection form
-    };
+  // back click function
+  const handleBackClick = () => {
+    setAccountType(""); // Reset the account type to show the selection form
+    localStorage.removeItem("accountType"); // Remove from localStorage when user goes back
+  };
+  
   
   return (
     <>
@@ -81,7 +91,7 @@ const Register = () => {
                     onClick={handleNextClick}
                     className={`group relative w-full flex justify-center lg:mb-5 py-2 px-4 border 
                                 text-sm font-medium rounded focus:outline-none
-                                ${selectedOption === "" ? ' text-gray-300 border-2' : 'bg-blue-500 text-white hover:bg-blue-600 border-transparent'}`}
+                                ${selectedOption === "" ? ' text-gray-300 border-2 cursor-not-allowed' : 'bg-blue-500 text-white hover:bg-blue-600 border-transparent'}`}
                 >
                     Next
                 </button>

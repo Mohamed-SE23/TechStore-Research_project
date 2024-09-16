@@ -22,7 +22,7 @@ const UserSlice = createSlice({
         setUser: (state, action) => {
             state.user = { ...action.payload };
             localStorage.setItem("user", JSON.stringify(state.user));
-            toast.success(`Welcome, ${action.payload.name}`);
+            toast.success(`Welcome, ${action.payload.name} to TechStore`);
         },
         // Clear User Info after logout
         clearUser: (state) => {
@@ -42,13 +42,13 @@ const UserSlice = createSlice({
         setUserVerified: (state, action) => {
             state.user.verified = action.payload;
             localStorage.setItem("user", JSON.stringify(state.user));
-            toast.success(`User verification updated`);
+            toast.success(`Your Account verified successfully`);
         },
         // Set the user as a company owner
-        setCompanyOwner: (state, action) => {
+        setCustomerOwner: (state, action) => {
             state.user.cOwner = action.payload;
             localStorage.setItem("user", JSON.stringify(state.user));
-            toast.success(`User updated as Company Owner`);
+            toast.success(`User updated as Customer Owner`);
         },
         // Set the user as a product owner
         setProductOwner: (state, action) => {
@@ -70,7 +70,7 @@ export const {
     setUser,
     clearUser,
     setUserVerified,
-    setCompanyOwner,
+    setCustomerOwner,
     setProductOwner,
     updateUserToken,
 } = UserSlice.actions;
@@ -80,7 +80,7 @@ export const selectCurrentUser = (state) => state.user.user;
 export const selectUserVerified = (state) => state.user.user.verified;
 export const selectUserType = (state) => state.user.user.type;
 export const selectUserToken = (state) => state.user.user.token;
-export const selectCompanyOwner = (state) => state.user.user.cOwner;
+export const selectCustomerOwner = (state) => state.user.user.cOwner;
 export const selectProductOwner = (state) => state.user.user.pOwner;
 
 // Export the reducer
