@@ -8,7 +8,7 @@ const ProductSettings = () => {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
-  const { user } = AuthData();
+  const user = {name: "proUserName"}
 
   useEffect(() => {
     fetchProducts();
@@ -105,13 +105,13 @@ const ProductSettings = () => {
                   <td className="py-3 px-4">885</td>
                   <td className="py-3 px-4">yes</td>
                   <td className="py-3 px-4">
-                    <img src={laptop} alt="name" className="h-16 w-16 rounded object-cover" />
+                    <img src={laptop} alt="name" className="h-16 w-auto rounded object-cover" />
                   </td>
                   <td className="py-3 px-4">2024 / 8 / 29</td>
-                  <td className="py-3 px-0 md:flex md:flex-col md:space-y-2">
+                  <td className="py-3 px-0 lg:flex-col md:justify-center md:items-center lg:space-y-2">
                     <button
                         onClick={handleEdit}
-                        className="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded mr-2">Edit</button>
+                        className="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded mr-2 lg:px-6 md:w-full md:mr-0">Edit</button>
                     <button 
                         onClick={handleDelete}
                         className="btn-primary">Delete</button>
@@ -162,13 +162,13 @@ const ProductSettings = () => {
                 <td className="py-3 px-4">{product.price}</td>
                 <td className="py-3 px-4">{product.delivery ? "Yes" : "No"}</td>
                 <td className="py-3 px-4">
-                  <img src={product.image} alt={product.name} className="h-16 w-16 rounded object-cover" />
+                  <img src={product.image} alt={product.name} className="h-16 w-auto rounded object-cover" />
                 </td>
                 <td className="py-3 px-4">{new Date(product.createdAt).toLocaleDateString()}</td>
-                <td className="py-3 px-4">
+                <td className="py-3 px-0 lg:flex-col md:justify-center md:items-center lg:space-y-2">
                   <button 
                   onClick={handleEdit}
-                  className="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded mr-2">Edit</button>
+                  className="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded mr-2 lg:px-6 md:w-full md:mr-0">Edit</button>
                   <button className="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded">Delete</button>
                 </td>
               </tr>

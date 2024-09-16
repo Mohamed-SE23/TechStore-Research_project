@@ -51,6 +51,7 @@ const ProviderRegistration = ({onBackClick}) => {
       ) : (
         <ProviderFormStepTwo
           formData={formData}
+          handleChange={handleChange}
           handleFileChange={handleFileChange}
           onBackClick={handleBackClick}
         />

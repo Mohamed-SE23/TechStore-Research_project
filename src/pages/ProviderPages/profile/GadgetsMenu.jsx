@@ -43,7 +43,7 @@ const GadgetsMenu = ({isActive, setIsActive}) => {
     }
     
     return (
-        <div className='container relative my-10 py-6 border-t-2 border-b-2'>
+        <div className='container relative mb-10 py-6'>
             <LargeScreen
                     MenuItem={MenuItem}
                     dropdownOpen={dropdownOpen}

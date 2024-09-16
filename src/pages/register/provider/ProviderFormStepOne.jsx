@@ -1,16 +1,29 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const ProviderFormStepOne = ({ formData, handleChange, onNextClick, onBackClick }) => {
+const ProviderFormStepOne = ({ onNextClick, onBackClick }) => {
     const [errors, setErrors] = useState({});
+
+    const [formData, setFormData] = useState({
+      type: 'provider',
+      username: '',
+      email: '',
+      phone: '',
+      password: '',
+      confirmPassword: ''
+    });
+
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+      setFormData({ ...formData, [name]: value });
+    };
+  
 
     const validate = () => {
       const newErrors = {};
       if (!formData.username) newErrors.username = 'Username is required';
       if (!formData.email) newErrors.email = 'Email is required';
       if (!formData.phone) newErrors.phone = 'Phone number is required';
-      if (!formData.storeName) newErrors.storeName = 'Store Name is required';
-      if (!formData.storeLocation) newErrors.storeLocation = 'Store Location is required';
       if (Object.keys(formData.password).length < 8) newErrors.password = 'Password must be at least 8 characters';
       if (!formData.password) newErrors.password = 'Password is required';
       if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = 'Passwords must match';
@@ -20,17 +33,19 @@ const ProviderFormStepOne = ({ formData, handleChange, onNextClick, onBackClick 
     };
 
     const handleNextClick = () => {
+      // send data to the backend
         if (validate()) {
+          console.log("User Information: ", formData)
           onNextClick();
         }
       };
 
 
   return (
-    <div className="min-h-screen flex items-center justify-center mb-10 px-4 sm:min-h-full sm:my-0 md:p-5 sm:px-6 lg:px-8">
-    <div className="max-w-md shadow-lg space-y-8 p-8 sm:shadow-none">
+    <div className="flex items-center justify-center mb-10 sm:min-h-full sm:my-0">
+    <div className="max-w-md shadow-lg space-y-8 p-6 sm:shadow-none">
       <div>
-        <h2 className="text-center text-3xl font-bold text-gray-700">Create <span className='text-[#ff7a57]'>Provider</span> account</h2>
+        <h2 className="text-center text-2xl font-bold text-gray-700 md:text-xl">Create <span className='text-[#ff7a57]'>Provider</span> account</h2>
         <p className="mt-2 text-center text-sm text-gray-600">
           Already have an account?{' '}
           <Link to="/sign" className="font-medium text-indigo-600 hover:text-indigo-500">
@@ -85,63 +100,7 @@ const ProviderFormStepOne = ({ formData, handleChange, onNextClick, onBackClick 
             />
             {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
           </div>
-          <div>
-            <label htmlFor="storeName" className="sr-only">Store Name</label>
-            <input
-              id="storeName"
-              name="storeName"
-              type="text"
-              required
-              value={formData.storeName}
-              onChange={handleChange}
-              className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-              placeholder="Store Name"
-            />
-            {errors.storeName && <p className="text-red-500 text-sm mt-1">{errors.storeName}</p>}
-          </div>
-          <div>
-            <label htmlFor="storeLocation" className="sr-only">Store Location</label>
-            <select
-              id="storeLocation"
-              name="storeLocation"
-              value={formData.location}
-              onChange={handleChange}
-              required
-              className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-            >
-              <option value="">Select Store Location</option>
-              <option value="White Nile state">White Nile state</option>
-              <option value="Atbara">Atbara</option>
-              <option value="Port Sudan">Port Sudan</option>
-              <option value="Kasala">Kasala</option>
-              <option value="Shendy">Shendy</option>
-            </select>
-            {errors.storeLocation && <p className="text-red-500 text-sm mt-1">{errors.storeLocation}</p>}
-          </div>
-          <div>
-            <label htmlFor="storeName" className="sr-only">Bio (optional)</label>
-                <input
-                id="bio"
-                name="bio"
-                type="text"
-                value={formData.bio}
-                onChange={handleChange}
-                className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Bio (optional)"
-                />
-          </div>
-          <div>
-            <label htmlFor="storeName" className="sr-only">Store social media account (if any)</label>
-                <input
-                id="storeMediaAccount"
-                name="storeMediaAccount"
-                type="text"
-                value={formData.storeMediaAccount}
-                onChange={handleChange}
-                className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Store social media account (if any)"
-                />
-          </div>
+          
           <div>
             <label htmlFor="password" className="sr-only">Password</label>
             <input
@@ -184,7 +143,7 @@ const ProviderFormStepOne = ({ formData, handleChange, onNextClick, onBackClick 
               onClick={handleNextClick}
               className="group relative w-full flex justify-center lg:mb-5 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#ff7a57] hover:bg-[#ff6739] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#ff6739]"
             >
-              Next
+              Register
             </button>
           </div>
         </div>

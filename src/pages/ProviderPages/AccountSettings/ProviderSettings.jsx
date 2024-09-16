@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ProfileSettings from './ProfileSettings';
 import EmailSettings from './EmailSettings';
 import PasswordSettings from './PasswordSettings';
+import PersonalDetails from './PersonalDetails';
 
 const ProviderSettings = () => {
   const [activeTab, setActiveTab] = useState('profile');
@@ -10,6 +11,8 @@ const ProviderSettings = () => {
     switch (activeTab) {
       case 'profile':
         return <ProfileSettings />;
+      case 'personal':
+        return <PersonalDetails />;
       case 'email':
         return <EmailSettings />;
       case 'password':
@@ -24,12 +27,18 @@ const ProviderSettings = () => {
       {/* Sidebar */}
       <div className="w-1/4 bg-white border-r p-6 md:w-full md:flex md:flex-col md:justify-center md:items-center">
         <h2 className="text-xl font-bold mb-8">Account Settings</h2>
-        <ul className='md:flex md:space-x-8 md:items-center'>
+        <ul className='md:flex md:space-x-4 md:items-center'>
           <li
             onClick={() => setActiveTab('profile')}
             className={`cursor-pointer mb-4 ${activeTab === 'profile' ? 'font-bold text-[#ff7a57]' : ''}`}
           >
-            Profile
+            Store
+          </li>
+          <li
+            onClick={() => setActiveTab('personal')}
+            className={`cursor-pointer mb-4 ${activeTab === 'personal' ? 'font-bold text-[#ff7a57]' : ''}`}
+          >
+            Personal
           </li>
           <li
             onClick={() => setActiveTab('email')}

@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 
 const ProfileSettings = () => {
   const [profile, setProfile] = useState({
-    username: 'current_username',  // Example of pre-filled data
+    storeName: 'current_storeName',  // Example of pre-filled data
     bio: 'This is a sample bio.',
     location: 'Atbara',
-    phone: '123-456-7890',
+    socialMedia: 'facebook.com',
     profilePhoto: null,
     coverPhoto: null,
   });
@@ -26,16 +26,16 @@ const ProfileSettings = () => {
 
   return (
     <div className="space-y-6 bg-white p-6 rounded-lg shadow-md">
-      <h2 className="text-2xl font-semibold mb-6">Profile Information</h2>
+      <h2 className="text-2xl font-semibold mb-6">Store Information</h2>
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Username */}
         <div className="flex justify-between items-center md:flex-col md:space-y-2 md:w-full md:items-start">
-          <label className="block text-sm font-semibold md:ml-1">Username</label>
+          <label className="block text-sm font-semibold md:ml-1">Store Name</label>
           <input
             type="text"
-            name="username"
-            placeholder="username"
-            value={profile.username}
+            name="storeName"
+            placeholder="Store Name"
+            value={profile.storeName}
             onChange={handleChange}
             required
             className="w-[70%] px-4 py-2 border rounded-md md:w-full"
@@ -74,18 +74,20 @@ const ProfileSettings = () => {
           </select>
         </div>
 
-        {/* Phone */}
+        {/* Social Media Account */}
+
         <div className="flex justify-between items-center md:flex-col md:space-y-2 md:w-full md:items-start">
-          <label className="block text-sm font-semibold md:ml-1">Phone Number</label>
+          <label className="block text-sm font-semibold md:ml-1">Store Media Account</label>
           <input
             type="text"
-            name="phone"
-            placeholder="phone number"
-            value={profile.phone}
+            name="socialMedia"
+            placeholder="Social Media Account (facebook, twitter, etc)"
+            value={profile.socialMedia}
             onChange={handleChange}
             className="w-[70%] px-4 py-2 border rounded-md md:w-full"
           />
         </div>
+        
 
         {/* Submit Button */}
         <div className="flex justify-end">

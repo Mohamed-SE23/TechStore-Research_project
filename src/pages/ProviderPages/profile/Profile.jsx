@@ -3,19 +3,17 @@ import TimeLine from './TimeLine';
 import GadgetsMenu from './GadgetsMenu';
 import NotOwnerHeader from './NotOwnerHeader';
 import { RenderGadgets } from './RenderGadgets';
+import RenderProfileContent from './RenderProfileContent';
 
 const Profile = () => {
   const POwner = true;
-  const [isActive, setIsActive] = useState('Computers');
+
   return (
-    <div>
+    <div className='bg-gray-100'>
       { !POwner && <NotOwnerHeader />}
       <TimeLine StoreName={'Store Name'}
                 bio={'we sell awesome Products'} />
-      <GadgetsMenu 
-                setIsActive={setIsActive}
-                isActive={isActive} />
-      <RenderGadgets isActive={isActive} />
+      <RenderProfileContent />
     </div>
   )
 }
