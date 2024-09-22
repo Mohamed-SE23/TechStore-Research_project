@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import TimeLine from './TimeLine';
-import GadgetsMenu from './GadgetsMenu';
 import NotOwnerHeader from './NotOwnerHeader';
-import { RenderGadgets } from './RenderGadgets';
 import RenderProfileContent from './RenderProfileContent';
+import { selectProductOwner, setProductOwner } from '../../../app/UserInfo';
 
 const Profile = () => {
-  const POwner = true;
+  const dispatch = useDispatch();
+  const POwner = useSelector(selectProductOwner);
+
+  dispatch(setProductOwner(false))
 
   return (
     <div className='bg-gray-100'>

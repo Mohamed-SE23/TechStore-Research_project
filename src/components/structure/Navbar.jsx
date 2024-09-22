@@ -24,6 +24,7 @@ const ProUser = {name: 'proUserName'}
 export const nav = [
     { path: "/",                            name: "Home",             element: <Home /> ,                isMenu: true,        isPrivate: false },
     { path: "/about",                       name: "About",            element: <About />,                isMenu: true,        isPrivate: false },
+    { path: "/verifyAccount",               name: "Verify",           element: <VerificationPage />,     isMenu: false,       isPrivate: true },
     { path: "/sign",                        name: "Sign in",          element: <Sign />,                 isMenu: false,       isPrivate: false },
     { path: "/register",                    name: "Register",         element: <Register />,             isMenu: false,       isPrivate: false },
     { path: `/${user.name}/stores`,         name: "Stores",           element: <Stores />,               isMenu: true,        isPrivate: true },

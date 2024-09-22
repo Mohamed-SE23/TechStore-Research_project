@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import customer from '../../assets/customer.png';
 import Brand from '../../components/structure/brand';
 
@@ -16,6 +16,7 @@ const CustomerRegister = ({ onBackClick }) => {
   });
 
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
   const validate = () => {
     const newErrors = {};
@@ -46,6 +47,7 @@ const CustomerRegister = ({ onBackClick }) => {
     // Handle form submission, validation, etc.
     if (validate()) {
       console.log(formData);
+      navigate('/verifyAccount')
     }
   };
 

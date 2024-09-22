@@ -56,22 +56,22 @@ const ProductSettings = () => {
         <h1 className="text-4xl font-bold">Products</h1>
       </div>
       <div className="flex justify-between items-center sm:flex-col sm:space-y-4 mb-4">
-        <div className="flex space-x-2">
+        <div className="flex space-x-2 xsm:flex-col xsm:items-center xsm:space-y-2 xsm:space-x-0">
           <button 
               onClick={handleCreate}
               className="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded">Create Product</button>
-          <button className="btn-secondary px-1 py-1 rounded font-semibold" onClick={fetchProducts}>Refresh</button>
+          <button className="btn-secondary px-1 py-1 rounded font-semibold xsm:hidden" onClick={fetchProducts}>Refresh</button>
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center justify-center">
           <input
             type="text"
             placeholder="Search by name..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="px-2 py-1 border rounded"
+            className="px-2 py-1 border border-r-0 rounded-l focus:outline-none"
           />
           <button
-            className={`flex items-center justify-center border px-2 py-1 active:outline-none rounded ${!searchTerm ? 'text-gray-300' : 'text-[#ff7a57] border-[#ff7a57] hover:text-white hover:bg-[#ff7a57]'}`}
+            className={`flex items-center justify-center border px-2 py-1 active:outline-none rounded-r ${!searchTerm ? 'text-gray-300' : 'text-[#ff7a57] border-[#ff7a57] hover:text-white hover:bg-[#ff7a57]'}`}
             onClick={handleSearch}
           >
             <IoMdSearch className='w-6 h-6' />
