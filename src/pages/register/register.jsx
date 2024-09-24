@@ -38,11 +38,11 @@ const Register = () => {
     setAccountType(""); // Reset the account type to show the selection form
     localStorage.removeItem("accountType"); // Remove from localStorage when user goes back
   };
+
   
   
   return (
     <>
-
       {/* Selection Form */}
       {!accountType && (
         <div className="flex flex-col justify-center items-center border border-[#ff7a57] mt-[8%] px-8 py-12 mx-[30%] lg:mx-[%25] rounded md:mx-[20%] sm:mx-auto sm:border-none">
@@ -83,13 +83,13 @@ const Register = () => {
               <div className="flex space-x-4 mt-8">
                 <button
                     onClick={handleCancelation}
-                    className="group relative w-full flex justify-center lg:mb-5 py-2 px-4 border border-transparent text-sm font-medium bg-gray-500 text-white rounded hover:bg-gray-600 focus:outline-none"
+                    className="group relative w-full flex justify-center lg:mb-5 py-1 px-4 border border-transparent text-sm font-medium bg-gray-500 text-white rounded hover:bg-gray-600 focus:outline-none"
                 >
                     Cancel
                 </button>
                 <button
                     onClick={handleNextClick}
-                    className={`group relative w-full flex justify-center lg:mb-5 py-2 px-4 border 
+                    className={`group relative w-full flex justify-center lg:mb-5 py-1 px-4 border 
                                 text-sm font-medium rounded focus:outline-none
                                 ${selectedOption === "" ? ' text-gray-300 border-2 cursor-not-allowed' : 'bg-blue-500 text-white hover:bg-blue-600 border-transparent'}`}
                 >

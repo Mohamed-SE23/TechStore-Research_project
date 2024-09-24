@@ -54,7 +54,11 @@ const UserSlice = createSlice({
         setProductOwner: (state, action) => {
             state.user.pOwner = action.payload;
             localStorage.setItem("user", JSON.stringify(state.user));
-            toast.success(`User updated as Product Owner`);
+        },
+        // Set the user type
+        setUserType: (state, action) => {
+            state.user.type = action.payload;
+            localStorage.setItem("user", JSON.stringify(state.user));
         },
         // Update User Token (for refreshing JWT or after re-login)
         updateUserToken: (state, action) => {
@@ -72,6 +76,7 @@ export const {
     setUserVerified,
     setCustomerOwner,
     setProductOwner,
+    setUserType,
     updateUserToken,
 } = UserSlice.actions;
 

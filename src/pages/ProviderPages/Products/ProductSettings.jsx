@@ -29,8 +29,8 @@ const ProductSettings = () => {
   }
 
   // navigate to create product page 
-  const handleEdit = () => {
-    navigate(`/${user.name}/productSettings/edit`);
+  const handleEdit = (id) => {
+    navigate(`/${user.name}/productSettings/edit/${id}`);
   }
 
   // handle Delete function
@@ -98,7 +98,7 @@ const ProductSettings = () => {
           <tbody>
             {/* this will be remove when database is ready */}
             <tr className="hover:bg-gray-100 border-b-2">
-                  <td className="py-3 px-4">2</td>
+                  <td className="py-3 px-4">22</td>
                   <td className="py-3 px-4">ProBook</td>
                   <td className="py-3 px-4">hp</td>
                   <td className="py-3 px-4">laptop</td>
@@ -110,7 +110,7 @@ const ProductSettings = () => {
                   <td className="py-3 px-4">2024 / 8 / 29</td>
                   <td className="py-3 px-0 lg:flex-col md:justify-center md:items-center lg:space-y-2">
                     <button
-                        onClick={handleEdit}
+                        onClick={() => handleEdit(22)}
                         className="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded mr-2 lg:px-6 md:w-full md:mr-0">Edit</button>
                     <button 
                         onClick={handleDelete}
@@ -130,13 +130,13 @@ const ProductSettings = () => {
                   <td className="py-3 px-4">2024 / 8 / 29</td>
                   <td className="py-3 px-0 md:flex md:flex-col md:space-y-2">
                     <button 
-                        onClick={handleEdit}
+                        onClick={() => handleEdit(2)}
                         className="bg-blue-500 text-white px-2 py-1 rounded mr-2">Edit</button>
                     <button className="btn-primary">Delete</button>
                   </td>
                 </tr>
             <tr className="hover:bg-gray-100 border-b-2">
-                  <td className="py-3 px-4">2</td>
+                  <td className="py-3 px-4">24</td>
                   <td className="py-3 px-4">ProBook</td>
                   <td className="py-3 px-4">hp</td>
                   <td className="py-3 px-4">laptop</td>
@@ -148,7 +148,7 @@ const ProductSettings = () => {
                   <td className="py-3 px-4">2024 / 8 / 29</td>
                   <td className="py-3 px-0 md:flex md:flex-col md:space-y-2">
                     <button 
-                        onClick={handleEdit}
+                        onClick={() => handleEdit(24)}
                         className="bg-blue-500 text-white px-2 py-1 rounded mr-2">Edit</button>
                     <button className="btn-primary">Delete</button>
                   </td>
@@ -167,7 +167,7 @@ const ProductSettings = () => {
                 <td className="py-3 px-4">{new Date(product.createdAt).toLocaleDateString()}</td>
                 <td className="py-3 px-0 lg:flex-col md:justify-center md:items-center lg:space-y-2">
                   <button 
-                  onClick={handleEdit}
+                  onClick={() => handleEdit({product.id})}
                   className="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded mr-2 lg:px-6 md:w-full md:mr-0">Edit</button>
                   <button className="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded">Delete</button>
                 </td>

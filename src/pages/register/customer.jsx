@@ -60,8 +60,8 @@ const CustomerRegister = ({ onBackClick }) => {
         <div className='flex-none mr-10 lg:mr-0 md:hidden w-1/2 -ml-1'>
           <img src={customer} alt="customer" className='inset-0 w-full h-full object-cover' />
         </div>
-        <div className="min-h-screen flex items-center justify-center w-1/2 py-8 lg:w-full sm:min-h-full md:p-5 sm:px-6 lg:px-8">
-          <div className="max-w-md w-full space-y-8 pr-7 lg:p-5">
+        <div className="min-h-screen flex items-center justify-center w-1/2 py-8 lg:w-full lg:py-4 sm:min-h-full md:p-5 sm:px-6 lg:px-4">
+          <div className="max-w-md w-full space-y-8 pr-7 lg:pr-0 lg:py-2">
             <div>
               <h2 className="text-center text-3xl font-bold text-gray-700">Welcome to Our Tech<span className='text-[#ff7a57]'>Store</span></h2>
               <p className="mt-2 text-center text-sm text-gray-600">
@@ -83,7 +83,7 @@ const CustomerRegister = ({ onBackClick }) => {
                     required
                     value={formData.username}
                     onChange={handleChange}
-                    className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                    className="appearance-none relative block w-full px-3 py-1.5 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                     placeholder="Username"
                   />
                   {errors.username && <p className="text-red-500 text-sm mt-1">{errors.username}</p>}
@@ -98,7 +98,7 @@ const CustomerRegister = ({ onBackClick }) => {
                     required
                     value={formData.email}
                     onChange={handleChange}
-                    className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                    className="appearance-none rounded-md relative block w-full px-3 py-1.5 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                     placeholder="Email"
                   />
                   {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
@@ -113,7 +113,7 @@ const CustomerRegister = ({ onBackClick }) => {
                     required
                     value={formData.phone}
                     onChange={handleChange}
-                    className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                    className="appearance-none rounded-md relative block w-full px-3 py-1.5 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                     placeholder="Phone Number"
                   />
                   {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
@@ -126,7 +126,7 @@ const CustomerRegister = ({ onBackClick }) => {
                     value={formData.location}
                     onChange={handleChange}
                     required
-                    className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                    className="appearance-none rounded-md relative block w-full px-3 py-1.5 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   >
                     <option value="">Select Location</option>
                     <option value="White Nile State">White Nile State</option>
@@ -144,7 +144,7 @@ const CustomerRegister = ({ onBackClick }) => {
                     name="profilePicture"
                     type="file"
                     onChange={handleFileChange}
-                    className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                    className="appearance-none rounded-md relative block w-full px-3 py-1.5 border border-gray-300 placeholder-gray-500 text-gray-900 file:text-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   />
                 </div>
                 <div>
@@ -157,7 +157,7 @@ const CustomerRegister = ({ onBackClick }) => {
                     required
                     value={formData.password}
                     onChange={handleChange}
-                    className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                    className="appearance-none rounded-md relative block w-full px-3 py-1.5 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                     placeholder="Password"
                   />
                   {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
@@ -171,7 +171,7 @@ const CustomerRegister = ({ onBackClick }) => {
                     required
                     value={formData.confirmPassword}
                     onChange={handleChange}
-                    className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                    className="appearance-none rounded-md relative block w-full px-3 py-1.5 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                     placeholder="Confirm Password"
                   />
                   {errors.confirmPassword && <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>}
@@ -182,14 +182,14 @@ const CustomerRegister = ({ onBackClick }) => {
                 <button
                   type="submit"
                   onClick={onBackClick}
-                  className="group relative w-full flex justify-center lg:mb-5 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gray-500 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-600"
+                  className="group relative w-full flex justify-center py-1 px-2 border border-transparent text-sm font-medium rounded-md text-white bg-gray-500 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-600"
                 >
                   Back
                 </button>
                 <button
                   type="submit"
                   onClick={handleSubmit}
-                  className="group relative w-full flex justify-center lg:mb-5 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#ff7a57] hover:bg-[#ff6739] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#ff6739]"
+                  className="group relative w-full flex justify-center py-1 px-2 border border-transparent text-sm font-medium rounded-md text-white bg-[#ff7a57] hover:bg-[#ff6739] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#ff6739]"
                 >
                   Register
                 </button>

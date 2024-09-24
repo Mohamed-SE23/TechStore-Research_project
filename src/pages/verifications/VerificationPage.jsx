@@ -1,19 +1,25 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { selectCurrentUser, setUserVerified } from "../../app/UserInfo";
 
 const VerificationPage = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(0);
+  const dispatch = useDispatch();
+  const user = useSelector(selectCurrentUser);
+  const navigate = useNavigate();
 
   // Function to start the countdown
   const startCountdown = () => {
     setIsButtonDisabled(true); // Disable the button
-    setTimeRemaining(300); // 10 minutes in seconds
+    setTimeRemaining(10); // 10 minutes in seconds
 
     const intervalId = setInterval(() => {
       setTimeRemaining((prev) => {
         if (prev === 1) {
           clearInterval(intervalId);
-          setIsButtonDisabled(false); // Re-enable the button after 10 minutes
+          setIsButtonDisabled(false); // Re-enable the button after 5 minutes
         }
         return prev - 1;
       });
@@ -21,7 +27,7 @@ const VerificationPage = () => {
   };
 
   const onResendClick = () => {
-    console.log("Resend link")
+    console.log(user.type)
   }
   // Triggered when the resend button is clicked
   const handleResendClick = () => {

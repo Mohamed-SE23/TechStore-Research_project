@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import ProviderFormStepOne from './ProviderFormStepOne';
 import ProviderFormStepTwo from './ProviderFormStepTwo';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectCurrentUser, setUserVerified } from '../../../app/UserInfo';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from '../../../app/UserInfo';
+import { useNavigate } from 'react-router-dom';
 
 const ProviderRegistration = ({onBackClick}) => {
   const [currentStep, setCurrentStep] = useState(1);
 
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = useSelector(selectCurrentUser);
   
   // Check the step state in localStorage when the component mounts
@@ -23,9 +24,12 @@ const ProviderRegistration = ({onBackClick}) => {
 
   // Handle the next step and save it in localStorage
   const handleNextClick = () => {
-    dispatch(setUserVerified(true));
-    setCurrentStep(2);
-    localStorage.setItem('currentStep', 2); // Save the step to persist after reload
+    if (user.verified) {
+      setCurrentStep(2);
+      localStorage.setItem('currentStep', 2); // Save the step to persist after reload
+    } else {
+      navigate('/verifyAccount')
+    }
   };
 
   const handleBackClick = () => {

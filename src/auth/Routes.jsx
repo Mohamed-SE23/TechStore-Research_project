@@ -39,7 +39,7 @@ export const RenderRoutes = () => {
         <Suspense fallback={<Loading />}>
           <Routes location={location} key={location.pathname}>
             {nav.map((r, i) => {
-              if (r.isPrivate && user.isAuthenticated && isCOwner) {
+              if (r.isPrivate && user.isAuthenticated) {
                 return <Route key={i} path={r.path} element={r.element} />;
               } else if (!r.isPrivate) {
                 return <Route key={i} path={r.path} element={r.element} />;

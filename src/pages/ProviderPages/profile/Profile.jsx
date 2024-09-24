@@ -9,7 +9,7 @@ const Profile = () => {
   const dispatch = useDispatch();
   const POwner = useSelector(selectProductOwner);
 
-  dispatch(setProductOwner(false))
+  dispatch(setProductOwner(true))
 
   return (
     <div className='bg-gray-100'>

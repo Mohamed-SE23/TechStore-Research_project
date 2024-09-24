@@ -1,9 +1,10 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthData } from '../auth/AuthWrapper';
+import { useSelector } from 'react-redux';
+import { selectUserType } from '../app/UserInfo';
 
 const NotFound = () => {
-  const { user } = AuthData();
+  const user = useSelector(selectUserType);
   const navigate = useNavigate();
 
   // go to previous page
@@ -21,7 +22,7 @@ const NotFound = () => {
         <span className='text-blue-600 hover:text-blue-400'><Link to={'/'}>the home page</Link></span> 
         : 
         <span>
-          <button onClick={handleBack} className='text-blue-600 hover:text-blue-400'>
+          <button onClick={() => handleBack} className='text-blue-600 hover:text-blue-400'>
             previous page
           </button>
         </span>
