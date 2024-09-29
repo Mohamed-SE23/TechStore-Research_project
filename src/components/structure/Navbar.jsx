@@ -1,4 +1,6 @@
 import React , { lazy }       from 'react';
+import ResetPassword from '../../pages/ResetPassword/ResetPassword';
+import VerificationPage from '../../pages/register/VerificationPage';
 
 const Home                  = lazy(() => import('../../pages/Home/Home'));
 const About                 = lazy(() => import('../../pages/About/About'));
@@ -15,7 +17,7 @@ const NotFound              = lazy(() => import('../../pages/NotFound'));
 const CustomerSettings      = lazy(() => import('../../pages/customerPages/AccountSettings/CustomerSettings'));
 const ProviderSettings      = lazy(() => import('../../pages/ProviderPages/AccountSettings/ProviderSettings'));
 const Cart                  = lazy(() => import('../../pages/customerPages/cart/Cart'));
-const VerificationPage      = lazy(() => import('../../pages/verifications/VerificationPage'));
+// const VerificationPage      = lazy(() => import('../../pages/verifications/VerificationPage'));
 
 const user = {name: 'userName'};
 const ProUser = {name: 'proUserName'}
@@ -24,7 +26,8 @@ const ProUser = {name: 'proUserName'}
 export const nav = [
     { path: "/",                            name: "Home",             element: <Home /> ,                isMenu: true,        isPrivate: false },
     { path: "/about",                       name: "About",            element: <About />,                isMenu: true,        isPrivate: false },
-    { path: "/verifyAccount",               name: "Verify",           element: <VerificationPage />,     isMenu: false,       isPrivate: true },
+    { path: "/verification",                name: "Reset Password",   element: <VerificationPage />,     isMenu: false,       isPrivate: false },
+    { path: "/reset-password",              name: "Reset Password",   element: <ResetPassword />,        isMenu: false,       isPrivate: false },
     { path: "/sign",                        name: "Sign in",          element: <Sign />,                 isMenu: false,       isPrivate: false },
     { path: "/register",                    name: "Register",         element: <Register />,             isMenu: false,       isPrivate: false },
     { path: `/${user.name}/stores`,         name: "Stores",           element: <Stores />,               isMenu: true,        isPrivate: true },
@@ -38,7 +41,8 @@ export const nav = [
 export const providerNav = [
     { path: "/",                                           name: "Home",                   element: <Home /> ,              isMenu: true,        isPrivate: false },
     { path: "/about",                                      name: "About",                  element: <About />,              isMenu: true,        isPrivate: false },
-    { path: "/verifyAccount",                              name: "Verify",                 element: <VerificationPage />,   isMenu: false,       isPrivate: true },
+    { path: "/verification",                               name: "Reset Password",         element: <VerificationPage />,   isMenu: false,       isPrivate: false },
+    { path: "/reset-password",                             name: "Reset Password",         element: <ResetPassword />,      isMenu: false,       isPrivate: false },
     { path: "/sign",                                       name: "Sign in",                element: <Sign />,               isMenu: false,       isPrivate: false },
     { path: "/register",                                   name: "Register",               element: <Register />,           isMenu: false,       isPrivate: false },
     { path: `${ProUser.name}/orders`,                      name: "Orders",                 element: <Orders />,             isMenu: true,        isPrivate: true },
@@ -46,5 +50,5 @@ export const providerNav = [
     { path: `${ProUser.name}/productSettings`,             name: "Products Settings",      element: <ProductSettings />,    isMenu: true,        isPrivate: true },
     { path: `${ProUser.name}/providerAccount`,             name: "Account",                element: <ProviderSettings />,   isMenu: true,        isPrivate: true },
     { path: `${ProUser.name}/productSettings/create`,      name: "Create Product",         element: <CreateProduct />,      isMenu: false,        isPrivate: true },
-    { path: `${ProUser.name}/productSettings/edit/:id`,        name: "Edit Product",           element: <EditProduct />,        isMenu: false,        isPrivate: true },
+    { path: `${ProUser.name}/productSettings/edit/:id`,    name: "Edit Product",           element: <EditProduct />,        isMenu: false,        isPrivate: true },
 ]

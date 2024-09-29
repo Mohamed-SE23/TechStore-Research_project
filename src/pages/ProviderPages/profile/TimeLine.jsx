@@ -7,7 +7,7 @@ import { BsCameraFill } from "react-icons/bs";
 import { CiEdit } from "react-icons/ci";
 import { selectProductOwner } from "../../../app/UserInfo";
 
-const TimeLine = ({ StoreName, bio }) => {
+const TimeLine = ({ StoreName, bio, inner_img, outer_img }) => {
   const [profileImages, setProfileImages] = useState({
     inner_img: coverTimeLine,
     outer_img: profile,

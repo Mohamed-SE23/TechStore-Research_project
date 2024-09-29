@@ -3,14 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AuthData } from '../../auth/AuthWrapper';
 import { nav } from './Navbar';
 import CartNav from './CartNav';
-import { selectCartItems, setOpenCart } from '../../app/CartSlice.js';
+import { setOpenCart } from '../../app/CartSlice.js';
+import { selectCurrentUser } from '../../app/UserInfo.js';
 
 
 export const Menu = () => {
 
-    const { user, logout } = AuthData();
+    const { logout } = AuthData();
+    const user = useSelector(selectCurrentUser);
     const dispatch = useDispatch();
-    const cartItems = useSelector(selectCartItems);
 
     const onCartToggle = () => {
         dispatch(setOpenCart({
@@ -42,7 +43,7 @@ export const Menu = () => {
                         return (
                             <MenuItem key={i} r={r} />
                         )
-                    } else if (user.isAuthenticated && r.isMenu) {
+                    } else if (user.verified && r.isMenu) {
                         if (r.name === 'Cart') {
                             return (
                                 <CartNav 
@@ -55,7 +56,7 @@ export const Menu = () => {
                     } else return false
                 })}
 
-                { user.isAuthenticated ?
+                { user.verified ?
                 <div className='btn-primary'>
                     <Link to={'#'} onClick={logout}>Log out</Link>
                 </div>

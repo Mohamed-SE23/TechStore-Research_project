@@ -1,10 +1,13 @@
+import { useSelector } from 'react-redux';
 import { NavLink, Link } from 'react-router-dom';
 import { AuthData } from '../../auth/AuthWrapper';
 import { providerNav } from './Navbar';
+import { selectCurrentUser } from '../../app/UserInfo';
 
 export const ProviderMenu = () => {
 
-    const { user, logout } = AuthData();
+    const { logout } = AuthData();
+    const user = useSelector(selectCurrentUser)
 
     const MenuItem = ({r}) => {
         return (
@@ -25,11 +28,11 @@ export const ProviderMenu = () => {
             <div className='flex md:hidden space-x-4 items-center first-letter'>
                 { providerNav.map((r, i) => {
 
-                    if (!r.isPrivate && r.isMenu && !user.isAuthenticated) {
+                    if (!r.isPrivate && r.isMenu && !user.verified) {
                         return (
                             <MenuItem key={i} r={r} />
                         )
-                    } else if (r.isPrivate && r.isMenu && user.isAuthenticated) {
+                    } else if (r.isPrivate && r.isMenu && user.verified) {
                         return (
                             <MenuItem key={i} r={r} />
                         )
@@ -38,7 +41,7 @@ export const ProviderMenu = () => {
                     return null;
                 })}
 
-                { user.isAuthenticated ?
+                { user.verified ?
                 <div className='btn-primary'>
                                     <Link to={'#'} onClick={logout}>Log out</Link>
                                 </div>

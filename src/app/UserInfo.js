@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 
 const initialState = {
-    user: {
+    user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {
         id: null,
         name: "",
         token: null,

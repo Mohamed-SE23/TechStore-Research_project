@@ -1,58 +1,88 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
 import customer from '../../assets/customer.png';
 import Brand from '../../components/structure/brand';
+import toast from 'react-hot-toast';
+import PageLoading from '../../components/reusable/PageLoading';
+import { setUser } from '../../app/UserInfo';
 
-const CustomerRegister = ({ onBackClick }) => {
+const RegisterPage = ({ onBackClick }) => {
   const [formData, setFormData] = useState({
-    type: 'customer',
+    type: '',
+    gender: '',
     username: '',
     email: '',
-    phone: '',
+    phone_number: '',
     location: '',
-    profilePicture: null,
     password: '',
     confirmPassword: ''
   });
-
+  const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const validate = () => {
     const newErrors = {};
     if (!formData.username) newErrors.username = 'Username is required';
     if (!formData.email) newErrors.email = 'Email is required';
-    if (!formData.phone) newErrors.phone = 'Phone number is required';
-    if (!formData.location) newErrors.location = 'please select a location';
-    if (Object.keys(formData.password).length < 8) newErrors.password = 'Password must be at least 8 characters';
+    if (!formData.phone_number) newErrors.phone_number = 'Phone number is required';
+    if (!formData.location) newErrors.location = 'Please select a location';
     if (!formData.password) newErrors.password = 'Password is required';
+    if (formData.password.length < 8) newErrors.password = 'Password must be at least 8 characters';
     if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = 'Passwords must match';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleFileChange = (e) => {
-    setFormData({ ...formData, profilePicture: e.target.files[0] });
-  };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission, validation, etc.
+    
     if (validate()) {
-      console.log(formData);
-      navigate('/verifyAccount')
+      const data = new FormData();
+      data.append('type', formData.type);
+      data.append('gender', formData.gender);
+      data.append('username', formData.username);
+      data.append('email', formData.email);
+      data.append('phone_number', formData.phone_number);
+      data.append('location', formData.location);
+      data.append('password', formData.password);
+
+      setLoading(true); // Start loading
+
+      try {
+        const response = await axios.post('/api/v1/signup', data, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'Access-Control-Allow-Origin': '*',
+          },
+        })
+        setLoading(false); // end loading
+        dispatch(setUser(response.data.data))
+        console.log('Form submitted successfully:', response.data.message);
+        toast.success(`${response.data.message}`);
+        navigate('/verification');
+
+      } catch (error) {
+        setLoading(false); // end loading
+        toast.error(`Error submitting form:, ${error.response?.data || error.message}`);
+        console.error('Error submitting form:', error.response?.data || error.message);
+      }
     }
   };
 
   return (
     <>
+      {loading && <PageLoading />}
       <div className='text-center my-10 lg:my-6 md:my-4 sm:my-2'>
         <Brand />
       </div>
@@ -73,6 +103,36 @@ const CustomerRegister = ({ onBackClick }) => {
             </div>
             <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
               <div className="rounded-md shadow-sm space-y-4">
+
+                {/* Account Type Field */}
+                <div>
+                  <label htmlFor="type" className="sr-only">Account Type</label>
+                  <select
+                    id="type"
+                    name="type"
+                    value={formData.type}
+                    onChange={handleChange}
+                    required
+                    className="appearance-none rounded-md relative block w-full px-3 py-1.5 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  >
+                    <option value="">Select Account type</option>
+                    <option value="customer">Customer</option>
+                    <option value="provider">Provider</option>
+                  </select>
+                  {formData.type === 'customer' && (
+                    <p className="text-gray-600 text-sm mt-1">
+                      This option allows you to browse stores and products.
+                    </p>
+                  )}
+                  {formData.type === 'provider' && (
+                    <p className="text-gray-600 text-sm mt-1">
+                      This option allows you to create your own store and post products.
+                    </p>
+                  )}
+                  {errors.type && <p className="text-red-500 text-sm mt-1">{errors.type}</p>}
+                </div>
+
+                {/* Username Field */}
                 <div>
                   <label htmlFor="username" className="sr-only">Username</label>
                   <input
@@ -88,6 +148,26 @@ const CustomerRegister = ({ onBackClick }) => {
                   />
                   {errors.username && <p className="text-red-500 text-sm mt-1">{errors.username}</p>}
                 </div>
+
+                {/* Gender Field */}
+                <div>
+                  <label htmlFor="gender" className="sr-only">Gender</label>
+                  <select
+                    id="gender"
+                    name="gender"
+                    value={formData.gender}
+                    onChange={handleChange}
+                    required
+                    className="appearance-none rounded-md relative block w-full px-3 py-1.5 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  >
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </select>
+                  {errors.gender && <p className="text-red-500 text-sm mt-1">{errors.gender}</p>}
+                </div>
+
+                {/* Email Field */}
                 <div>
                   <label htmlFor="email" className="sr-only">Email</label>
                   <input
@@ -103,21 +183,25 @@ const CustomerRegister = ({ onBackClick }) => {
                   />
                   {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
                 </div>
+
+                {/* Phone Number Field */}
                 <div>
-                  <label htmlFor="phone" className="sr-only">Phone Number</label>
+                  <label htmlFor="phone_number" className="sr-only">Phone Number</label>
                   <input
-                    id="phone"
-                    name="phone"
+                    id="phone_number"
+                    name="phone_number"
                     type="tel"
                     autoComplete="tel"
                     required
-                    value={formData.phone}
+                    value={formData.phone_number}
                     onChange={handleChange}
                     className="appearance-none rounded-md relative block w-full px-3 py-1.5 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                     placeholder="Phone Number"
                   />
-                  {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
+                  {errors.phone_number && <p className="text-red-500 text-sm mt-1">{errors.phone_number}</p>}
                 </div>
+
+                {/* Location Field */}
                 <div>
                   <label htmlFor="location" className="sr-only">Location</label>
                   <select
@@ -137,16 +221,8 @@ const CustomerRegister = ({ onBackClick }) => {
                   </select>
                   {errors.location && <p className="text-red-500 text-sm mt-1">{errors.location}</p>}
                 </div>
-                <div>
-                  <label htmlFor="profilePicture" className="text-gray-500">Profile Picture(optional):</label>
-                  <input
-                    id="profilePicture"
-                    name="profilePicture"
-                    type="file"
-                    onChange={handleFileChange}
-                    className="appearance-none rounded-md relative block w-full px-3 py-1.5 border border-gray-300 placeholder-gray-500 text-gray-900 file:text-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                  />
-                </div>
+
+                {/* Password Field */}
                 <div>
                   <label htmlFor="password" className="sr-only">Password</label>
                   <input
@@ -162,6 +238,8 @@ const CustomerRegister = ({ onBackClick }) => {
                   />
                   {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
                 </div>
+
+                {/* Confirm Password Field */}
                 <div>
                   <label htmlFor="confirmPassword" className="sr-only">Confirm Password</label>
                   <input
@@ -180,15 +258,14 @@ const CustomerRegister = ({ onBackClick }) => {
 
               <div className='flex space-x-3'>
                 <button
-                  type="submit"
+                  type="button"
                   onClick={onBackClick}
                   className="group relative w-full flex justify-center py-1 px-2 border border-transparent text-sm font-medium rounded-md text-white bg-gray-500 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-600"
                 >
-                  Back
+                  Cancel
                 </button>
                 <button
                   type="submit"
-                  onClick={handleSubmit}
                   className="group relative w-full flex justify-center py-1 px-2 border border-transparent text-sm font-medium rounded-md text-white bg-[#ff7a57] hover:bg-[#ff6739] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#ff6739]"
                 >
                   Register
@@ -196,10 +273,10 @@ const CustomerRegister = ({ onBackClick }) => {
               </div>
             </form>
           </div>
+        </div>
       </div>
-    </div>
     </>
   );
-}
+};
 
-export default CustomerRegister;
+export default RegisterPage;

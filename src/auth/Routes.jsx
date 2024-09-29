@@ -1,19 +1,18 @@
 import React, { Suspense } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
-import { AuthData } from "./AuthWrapper";
 import { nav } from "../components/structure/Navbar";
 import { providerNav } from "../components/structure/Navbar";
 import Loading from "../components/reusable/Loading";
+import { selectCurrentUser } from "../app/UserInfo";
 
 // ******************** Rendering Routes depending on the navbar element ***************************
 
 export const RenderRoutes = () => {
-  const { user } = AuthData();
+  const user = useSelector(selectCurrentUser);
   const location = useLocation();
-  const isCOwner = true;
-  const isPOwner = true;
-
+  
   const pageVariants = {
     initial: { opacity: 0, x: 300 },
     in: { opacity: 1, x: 0 },
@@ -39,15 +38,15 @@ export const RenderRoutes = () => {
         <Suspense fallback={<Loading />}>
           <Routes location={location} key={location.pathname}>
             {nav.map((r, i) => {
-              if (r.isPrivate && user.isAuthenticated) {
+              if (r.isPrivate && user.verified && user.cOwner) {
                 return <Route key={i} path={r.path} element={r.element} />;
               } else if (!r.isPrivate) {
                 return <Route key={i} path={r.path} element={r.element} />;
               } else return false;
             })}
             {providerNav.map((r, i) => {
-              if (r.isPrivate && user.isAuthenticated) {
-                if (isPOwner && r.name !== "Profile") {
+              if (r.isPrivate && user.verified) {
+                if (user.pOwner && r.name !== "Profile") {
                   return <Route key={i} path={r.path} element={r.element} />;
                 } else if (r.name === "Profile") {
                   return <Route key={i} path={r.path} element={r.element} />;

@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AuthData } from '../../auth/AuthWrapper';
 import { nav } from './Navbar';
 import CartNav from './CartNav';
 import { setOpenCart } from '../../app/CartSlice.js';
+import { selectCurrentUser } from '../../app/UserInfo.js';
 
 export const Hamburger = () => {
-    const { user, logout } = AuthData();
+    const { logout } = AuthData();
     const [isOpen, setIsOpen] = useState(false);
     const dispatch = useDispatch();
+    const user = useSelector(selectCurrentUser);
 
     // toggle hamburger menu
     const toggleMenu = () => {
@@ -70,7 +72,7 @@ export const Hamburger = () => {
                                     r={r} 
                                 />
                             );
-                        } else if (user.isAuthenticated && r.isMenu) {
+                        } else if (user.verified && r.isMenu) {
                             if (r.name === 'Cart') {
                                 return (
                                     <div onClick={toggleMenu} key="cart-nav"> {/* Key for the wrapper */}
@@ -90,7 +92,7 @@ export const Hamburger = () => {
                         } else return null;  // If false, return null explicitly
                     })}
 
-                    {user.isAuthenticated ? (
+                    {user.verified ? (
                         <div 
                             onClick={toggleMenu} 
                             className='btn-primary'

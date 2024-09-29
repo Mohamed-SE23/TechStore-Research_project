@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const ProviderFormStepTwo = ({ onBackClick, onSubmit }) => {
+const CreateStore = () => {
   const [errors, setErrors] = useState({});
 
   const [formData, setFormData] = useState({
@@ -35,8 +35,8 @@ const ProviderFormStepTwo = ({ onBackClick, onSubmit }) => {
     const newErrors = {};
     if (!formData.storeName) newErrors.storeName = 'Store Name is required';
     if (!formData.storeLocation) newErrors.storeLocation = 'Store Location is required';
-    if (!formData.operationTime.opening) newErrors.operationTimeOpening = 'Opening time is required';
-    if (!formData.operationTime.closing) newErrors.operationTimeClosing = 'Closing time is required';
+    // if (!formData.operationTime.opening) newErrors.operationTimeOpening = 'Opening time is required';
+    // if (!formData.operationTime.closing) newErrors.operationTimeClosing = 'Closing time is required';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -50,9 +50,10 @@ const ProviderFormStepTwo = ({ onBackClick, onSubmit }) => {
   };
 
   return (
+    <div className='flex items-center justify-center mt-20'>
     <div className="max-w-md shadow-lg space-y-8 p-6 sm:p-0 sm:shadow-none">
-      <h2 className="text-center text-xl font-bold text-gray-700 md:text-lg">Your <span className='text-[#ff7a57]'>Store</span> Info</h2>
-      <form className="mt-8 space-y-6 sm:mt-0" onSubmit={onSubmit}>
+      <h2 className="text-center text-xl font-bold text-gray-700 md:text-lg">Create Your <span className='text-[#ff7a57]'>Store</span></h2>
+      <form className="mt-8 space-y-6 sm:mt-0" onSubmit={handleSubmit}>
         <div className="rounded-md shadow-sm space-y-4 sm:shadow-none">
           <div>
             <label htmlFor="storeName" className="sr-only">Store Name</label>
@@ -129,7 +130,6 @@ const ProviderFormStepTwo = ({ onBackClick, onSubmit }) => {
                   placeholder="Opening Time"
                 />
               </div>
-                {errors.operationTimeClosing && <p className="text-red-500 text-sm text-center mt-1">{errors.operationTimeClosing}</p>}
 
               <div className="flex items-center space-x-4">
                 <label htmlFor="closing" className="text-gray-700 font-semibold pr-2">Closing:</label>
@@ -140,10 +140,8 @@ const ProviderFormStepTwo = ({ onBackClick, onSubmit }) => {
                   onChange={handleOperationTimeChange}
                   className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Closing Time"
-                  required
                 />
               </div>
-            {errors.operationTimeOpening && <p className="text-red-500 text-sm text-center mt-1">{errors.operationTimeOpening}</p>}
             </div>
           </div>
 
@@ -171,24 +169,18 @@ const ProviderFormStepTwo = ({ onBackClick, onSubmit }) => {
           
           <div className="flex space-x-3">
             <button
-              type="button"
-              onClick={onBackClick}
-              className="group relative w-full flex justify-center lg:mb-5 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gray-500 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-600"
-            >
-              Back
-            </button>
-            <button
               type="submit"
               onClick={handleSubmit}
               className="group relative w-full flex justify-center lg:mb-5 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#ff7a57] hover:bg-[#ff6739] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#ff6739]"
             >
-              Submit
+              Create Store
             </button>
           </div>
         </div>
       </form>
     </div>
+    </div>
   );
 };
 
-export default ProviderFormStepTwo;
+export default CreateStore;

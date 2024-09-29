@@ -1,8 +1,10 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { RenderMenu } from "../components/structure/RenderNavbar";
 import { RenderRoutes } from "./Routes";
 import Cart from "../pages/customerPages/cart/Cart";
+import { clearUser, selectCurrentUser } from "../app/UserInfo";
 
 const AuthContext = createContext();
 export const AuthData = () => useContext(AuthContext);
@@ -12,13 +14,14 @@ export const AuthWrapper = () => {
 
     const navigate = useNavigate();
     const [ showNav, setShowNav ] = useState(true);
-    const [ user, setUser ] = useState({name: "proUserName", type: "provider", isAuthenticated: true});
-    const isPOwner = true
+
+    const dispatch = useDispatch();
+    const user = useSelector(selectCurrentUser);
 
     const location = useLocation();
 
     useEffect(() => {
-        if (location.pathname === '/sign' || location.pathname === '/register' || location.pathname === '/verifyAccount' || (user.isAuthenticated && !isPOwner)) {
+        if (location.pathname === '/sign' || location.pathname === '/register' || location.pathname === '/reset-password' || location.pathname === '/verification') {
             setShowNav(false);
         } else {
             setShowNav(true);
@@ -26,29 +29,24 @@ export const AuthWrapper = () => {
 
     }, [location]);
 
-    const login = (userName, password) => {
-        // login function as testing i will try static
-
-        return setUser({name: userName, isAuthenticated: true});
-    }
     // logout function 
     const logout = () => {
-        setUser({...user, isAuthenticated: false});
+        dispatch(clearUser());
         console.log('User is being logged out ...');
+        navigate('/');
     }
 
     useEffect(() => {
-        if (!user.isAuthenticated && window.location.pathname !== '/') {
-          navigate('/');
+        if (!user) {
+            navigate('/');
         }
-      }, [user.isAuthenticated]);
+    }, [user, navigate]);
     
-
     return (
 
-        <AuthContext.Provider value={{user, login, logout}}>
+        <AuthContext.Provider value={{user, logout}}>
             {showNav && <RenderMenu />}
-            {user.type === 'customer' &&  <Cart />}
+            {user.account_type === 'customer' &&  <Cart />}
             <RenderRoutes />
         </AuthContext.Provider>
     )

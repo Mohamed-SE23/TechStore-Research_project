@@ -1,10 +1,13 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 import { AuthData } from '../../auth/AuthWrapper';
 import { providerNav } from './Navbar';
+import { selectCurrentUser } from '../../app/UserInfo';
 
 export const ProviderHum = () => {
-    const { user, logout } = AuthData();
+    const { logout } = AuthData();
+    const user = useSelector(selectCurrentUser)
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -52,14 +55,14 @@ export const ProviderHum = () => {
                 <div className='hidden bg-white shadow-lg px-8 pb-5 md:flex md:flex-col space-y-2 items-center md:text-sm sm:text-xs'>
                     { providerNav.map((r, i) => {
 
-                        if (!r.isPrivate && r.isMenu && !user.isAuthenticated) {
+                        if (!r.isPrivate && r.isMenu && !user.verified) {
                             return (
                                 <MenuItem 
                                     key={i} 
                                     onClick={toggleMenu}
                                     r={r} />
                             )
-                        } else if (r.isPrivate && r.isMenu && user.isAuthenticated) {
+                        } else if (r.isPrivate && r.isMenu && user.verified) {
                             return (
                                 <MenuItem 
                                     key={i} 
@@ -69,7 +72,7 @@ export const ProviderHum = () => {
                         } else return false
                     })}
 
-                    { user.isAuthenticated ?
+                    { user.verified ?
                     <div
                         onClick={toggleMenu}
                         className='btn-primary'>
