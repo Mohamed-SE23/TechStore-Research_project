@@ -1,12 +1,22 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
+import toast from 'react-hot-toast';
+import { selectCurrentUser } from '../../../app/UserInfo';
+import PageLoading from '../../../components/reusable/PageLoading';
+
 
 const CreateStore = () => {
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const user = useSelector(selectCurrentUser);
 
   const [formData, setFormData] = useState({
     storeName: '',
     bio: '',
     storeLocation: '',
+    email: '',               // New email field
+    phone_number: '',         // New phone number field
     operationTime: { opening: '', closing: '' }, // Updated field for operation time
     storeMediaAccount: '',
     profilePhoto: null,
@@ -34,27 +44,70 @@ const CreateStore = () => {
   const validate = () => {
     const newErrors = {};
     if (!formData.storeName) newErrors.storeName = 'Store Name is required';
+    if (!formData.email) newErrors.email = 'Email is required';  // Email validation
+    if (!formData.phone_number) newErrors.phone_number = 'Phone number is required'; // Phone number validation
     if (!formData.storeLocation) newErrors.storeLocation = 'Store Location is required';
-    // if (!formData.operationTime.opening) newErrors.operationTimeOpening = 'Opening time is required';
-    // if (!formData.operationTime.closing) newErrors.operationTimeClosing = 'Closing time is required';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validate()) {
+      const data = new FormData();
+      data.append('store_name', formData.storeName);
+      data.append('store_location', formData.storeLocation);
+      data.append('store_email', formData.email);
+      data.append('store_phone_number', formData.phone_number);
+      data.append('operation_times', JSON.stringify(formData.operationTime)); // Convert object to string
+      data.append('social_media_accounts', formData.storeMediaAccount);
+      data.append('store_bio', formData.bio);
+
+          // Append file uploads
+    if (formData.profilePhoto) {
+      data.append('inner_image', formData.profilePhoto);
+    }
+    if (formData.coverPhoto) {
+      data.append('outer_image', formData.coverPhoto);
+    }
+
       console.log("Store Information: ", formData);
+
+      setLoading(true); // Start loading
+
+      try {
+        const token = user.token;
+
+        const response = await axios.post('/api/v1/stores/create-store', data, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Authorization': `Bearer ${token}`,  // Add the token here
+          },
+        })
+
+        setLoading(false);
+        toast.success(`${response.data.message}`);
+
+      } catch(error) {
+
+        setLoading(false);
+        console.log(error);
+      }
     }
   };
 
   return (
+    <>
+    {loading && <PageLoading />}
     <div className='flex items-center justify-center mt-20'>
     <div className="max-w-md shadow-lg space-y-8 p-6 sm:p-0 sm:shadow-none">
       <h2 className="text-center text-xl font-bold text-gray-700 md:text-lg">Create Your <span className='text-[#ff7a57]'>Store</span></h2>
       <form className="mt-8 space-y-6 sm:mt-0" onSubmit={handleSubmit}>
         <div className="rounded-md shadow-sm space-y-4 sm:shadow-none">
+          
+          {/* Store Name Field */}
           <div>
             <label htmlFor="storeName" className="sr-only">Store Name</label>
             <input
@@ -69,7 +122,40 @@ const CreateStore = () => {
             />
             {errors.storeName && <p className="text-red-500 text-sm mt-1">{errors.storeName}</p>}
           </div>
+
+          {/* Email Field */}
+          <div>
+            <label htmlFor="email" className="sr-only">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              value={formData.email}
+              onChange={handleChange}
+              className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              placeholder="Store Email"
+            />
+            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+          </div>
+
+          {/* Phone Number Field */}
+          <div>
+            <label htmlFor="phone_number" className="sr-only">Phone Number</label>
+            <input
+              id="phone_number"
+              name="phone_number"
+              type="tel"
+              required
+              value={formData.phone_number}
+              onChange={handleChange}
+              className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              placeholder="Phone Number"
+            />
+            {errors.phone_number && <p className="text-red-500 text-sm mt-1">{errors.phone_number}</p>}
+          </div>
           
+          {/* Store Location Field */}
           <div>
             <label htmlFor="storeLocation" className="sr-only">Store Location</label>
             <select
@@ -89,7 +175,6 @@ const CreateStore = () => {
             </select>
             {errors.storeLocation && <p className="text-red-500 text-sm mt-1">{errors.storeLocation}</p>}
           </div>
-          
           <div>
             <label htmlFor="bio" className="sr-only">Bio (optional)</label>
             <input
@@ -180,6 +265,7 @@ const CreateStore = () => {
       </form>
     </div>
     </div>
+    </>
   );
 };
 

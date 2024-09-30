@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import PageLoading from '../../components/reusable/PageLoading';
+import { selectCurrentUser } from '../../app/UserInfo';
 
 const NewPasswordStep = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const user = useSelector(selectCurrentUser);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,11 +24,13 @@ const NewPasswordStep = () => {
     }
     try {
       setLoading(true);
+      const token = user.token;
       const passwordData = {newPassword: password}
       await axios.post('/api/v1/password-reset', passwordData, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
+          'Authorization': `Bearer ${token}`,  // Add the token here
         },
       });
       setLoading(false)

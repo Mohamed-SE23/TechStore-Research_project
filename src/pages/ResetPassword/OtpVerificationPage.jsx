@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { setUser } from '../../app/UserInfo';
 
 const OtpVerificationStep = ({ email, setEmail, nextStep }) => {
   const [otp, setOtp] = useState(new Array(6).fill(''));
   const [error, setError] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(60); // Countdown timer (1 min)
+  const dispatch = useDispatch();
 
   useEffect(() => {
     let interval;
@@ -46,13 +49,15 @@ const OtpVerificationStep = ({ email, setEmail, nextStep }) => {
     try {
       const otpCode = otp.join('');
       const otpData = {otpCode: otpCode}
-      await axios.post('/api/v1/otp-verify', otpData, {
+      const response = await axios.post('/api/v1/otp-verify', otpData, {
         headers: { 
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
 
         },
       });
+      dispatch(setUser(response.data.data))
+      console.log(response.data.data)
       nextStep(); // Move to new password step if successful
     } catch (err) {
       console.log(err)

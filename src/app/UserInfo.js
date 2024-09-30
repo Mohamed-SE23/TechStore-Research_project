@@ -22,7 +22,7 @@ const UserSlice = createSlice({
         setUser: (state, action) => {
             state.user = { ...action.payload };
             localStorage.setItem("user", JSON.stringify(state.user));
-            toast.success(`Welcome, ${action.payload.name} to TechStore`);
+            toast.success(`Welcome, ${action.payload.username} to TechStore`);
         },
         // Clear User Info after logout
         clearUser: (state) => {
@@ -42,13 +42,13 @@ const UserSlice = createSlice({
         setUserVerified: (state, action) => {
             state.user.verified = action.payload;
             localStorage.setItem("user", JSON.stringify(state.user));
-            toast.success(`Your Account verified successfully`);
+            // toast.success(`Your Account verified successfully`);
         },
         // Set the user as a company owner
         setCustomerOwner: (state, action) => {
             state.user.cOwner = action.payload;
             localStorage.setItem("user", JSON.stringify(state.user));
-            toast.success(`User updated as Customer Owner`);
+            // toast.success(`User updated as Customer Owner`);
         },
         // Set the user as a product owner
         setProductOwner: (state, action) => {
@@ -64,7 +64,7 @@ const UserSlice = createSlice({
         updateUserToken: (state, action) => {
             state.user.token = action.payload;
             localStorage.setItem("user", JSON.stringify(state.user));
-            toast.success(`Token updated successfully`);
+            // toast.success(`Token updated successfully`);
         }
     }
 });

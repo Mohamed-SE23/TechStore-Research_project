@@ -23,12 +23,12 @@ function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/services" className="text-slate-100 hover:text-slate-300">
+                <Link to="#" className="text-slate-100 hover:text-slate-300">
                   TechStore careers
                 </Link>
               </li>
               <li>
-                <Link to="/contact" className="text-slate-100 hover:text-slate-300">
+                <Link to="#" className="text-slate-100 hover:text-slate-300">
                   Location
                 </Link>
               </li>
@@ -40,7 +40,7 @@ function Footer() {
             <h3 className="text-lg font-semibold mb-4">Customer Services</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/" className="text-slate-100 hover:text-slate-300">
+                <Link to="#" className="text-slate-100 hover:text-slate-300">
                   Help Center
                 </Link>
               </li>
@@ -50,12 +50,12 @@ function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/services" className="text-slate-100 hover:text-slate-300">
+                <Link to="#" className="text-slate-100 hover:text-slate-300">
                   Feedback
                 </Link>
               </li>
               <li>
-                <Link to="/contact" className="text-slate-100 hover:text-slate-300">
+                <Link to="#" className="text-slate-100 hover:text-slate-300">
                   Privacy & Policy
                 </Link>
               </li>
@@ -77,12 +77,12 @@ function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/personal-training" className="text-slate-100 hover:text-slate-300">
+                <Link to="#" className="text-slate-100 hover:text-slate-300">
                   Email Notifications
                 </Link>
               </li>
               <li>
-                <Link to="/nutrition" className="text-slate-100 hover:text-slate-300">
+                <Link to="#" className="text-slate-100 hover:text-slate-300">
                   Orders
                 </Link>
               </li>

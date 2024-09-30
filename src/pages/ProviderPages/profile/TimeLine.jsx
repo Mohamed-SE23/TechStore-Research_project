@@ -1,25 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import axios from "axios";
 import profile from "../../../assets/profile.jpg";
 import coverTimeLine from "../../../assets/coverTimeLine.jpg";
 import { BsCameraFill } from "react-icons/bs";
 import { CiEdit } from "react-icons/ci";
 import { selectProductOwner } from "../../../app/UserInfo";
 
-const TimeLine = ({ StoreName, bio, inner_img, outer_img }) => {
+const TimeLine = ({ StoreName, bio, inner_img, outer_img, store_id,user }) => {
   const [profileImages, setProfileImages] = useState({
-    inner_img: coverTimeLine,
-    outer_img: profile,
+    inner_img: inner_img || coverTimeLine,
+    outer_img: outer_img || profile,
   });
 
   const [showFullImage, setShowFullImage] = useState(false);
   const [imageToShow, setImageToShow] = useState("");
-  
+
   const ProvOwner = useSelector(selectProductOwner);
 
-  // Function to handle the image upload
-  const handleImageUpload = (e, imageType) => {
+  // Update the images if props change
+  useEffect(() => {
+    setProfileImages({
+      inner_img: inner_img || coverTimeLine,
+      outer_img: outer_img || profile,
+    });
+  }, [inner_img, outer_img]);
+
+  // Function to handle image upload and send it to the backend
+  const handleImageUpload = async (e, imageType) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
@@ -28,14 +37,37 @@ const TimeLine = ({ StoreName, bio, inner_img, outer_img }) => {
           ...prevImages,
           [imageType]: reader.result,
         }));
-
-        // Send the file to the backend (mockup example)
-        const formData = new FormData();
-        formData.append("file", file);
-        // Example: Send to backend
-        // fetch("/upload-image", { method: "POST", body: formData });
       };
       reader.readAsDataURL(file);
+
+      // Send the image to the backend using axios PUT request
+      await uploadImageToBackend(file, imageType);
+    }
+  };
+
+  // Function to send image to the backend
+  const uploadImageToBackend = async (file, imageType) => {
+    const formData = new FormData();
+    formData.append(`${imageType}`, file);
+    formData.append('store_id', store_id) // Append the image file with key (inner_img or outer_img)
+
+    try {
+      const token = user.token;
+
+      const response = await axios.put(`/api/v1/stores/update-store/${store_id}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          'Authorization': `Bearer ${token}`,  // Add the token here
+        },
+      });
+
+      if (response.status === 200) {
+        console.log("Image uploaded successfully", response.data);
+      } else {
+        console.error("Failed to upload image", response);
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
     }
   };
 
@@ -45,11 +77,11 @@ const TimeLine = ({ StoreName, bio, inner_img, outer_img }) => {
     setShowFullImage(true);
   };
 
-  // handle navigation to edit account 
+  // Handle navigation to edit account
   const navigate = useNavigate();
   const handleNavigate = () => {
-    navigate('/proUserName/providerAccount')
-  }
+    navigate("/proUserName/providerAccount");
+  };
 
   return (
     <div className="flex flex-col justify-center items-center bg-gradient-to-b from-gray-200 to-white pb-8 mb-10">
@@ -69,7 +101,7 @@ const TimeLine = ({ StoreName, bio, inner_img, outer_img }) => {
       {/* Store Inner Image */}
       <div className="relative max-w-5xl w-full h-96 flex justify-center sm:h-72">
         <img
-          src={profileImages.inner_img || coverTimeLine}
+          src={profileImages.inner_img}
           alt="cover photo"
           className="object-cover w-full h-full rounded-b-lg"
           onClick={() => handleImageClick(profileImages.inner_img)}
@@ -92,7 +124,7 @@ const TimeLine = ({ StoreName, bio, inner_img, outer_img }) => {
         {/* Store Outer Image */}
         <div className="absolute -bottom-20 md:-bottom-16">
           <img
-            src={profileImages.outer_img || profile}
+            src={profileImages.outer_img}
             alt="profile photo"
             className="w-44 h-44 object-cover rounded-full border-4 border-white 
             lg:w-40 lg:h-40 md:w-36 md:h-36 sm:w-32 sm:h-32"
@@ -121,9 +153,7 @@ const TimeLine = ({ StoreName, bio, inner_img, outer_img }) => {
 
       {ProvOwner && (
         <div className="mt-10 bg-gray-200 px-2 py-1 rounded hover:bg-gray-300 active:scale-95">
-          <button 
-            onClick={handleNavigate}
-            className="flex items-center gap-2">
+          <button onClick={handleNavigate} className="flex items-center gap-2">
             <CiEdit className="w-5 h-5" />
             <span>Edit store information</span>
           </button>

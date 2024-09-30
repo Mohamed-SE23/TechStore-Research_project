@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { selectStoreData } from '../../../app/storeDataSlice';
 
 const ProfileSettings = () => {
   const [profile, setProfile] = useState({
@@ -9,6 +12,10 @@ const ProfileSettings = () => {
     profilePhoto: null,
     coverPhoto: null,
   });
+
+  const [deleting, setDeleting] = useState(false); // State to manage deletion loading
+  const storeData = useSelector(selectStoreData); // Assuming the store ID is available here
+  const storeId = storeData.storeId;
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -24,11 +31,37 @@ const ProfileSettings = () => {
     console.log('Profile updated:', profile);
   };
 
+  const handleDeleteStore = async () => {
+    const confirmed = window.confirm("Are you sure you want to delete your store?");
+    if (confirmed) {
+      try {
+        setDeleting(true);
+        // Make DELETE request to the API
+        const response = await axios.delete(`/api/v1/stores/delete-store/${storeId}`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        console.log('Store deleted:', response.data);
+        // Handle successful deletion (e.g., redirect user or show success message)
+        alert("Store has been successfully deleted.");
+      } catch (error) {
+        console.error('Error deleting store:', error);
+        alert("Failed to delete the store. Please try again.");
+      } finally {
+        setDeleting(false);
+      }
+    } else {
+      // Deletion was canceled
+      console.log("Store deletion canceled.");
+    }
+  };
+
   return (
     <div className="space-y-6 bg-white p-6 rounded-lg shadow-md">
       <h2 className="text-2xl font-semibold mb-6">Store Information</h2>
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Username */}
+        {/* Store Name */}
         <div className="flex justify-between items-center md:flex-col md:space-y-2 md:w-full md:items-start">
           <label className="block text-sm font-semibold md:ml-1">Store Name</label>
           <input
@@ -55,7 +88,6 @@ const ProfileSettings = () => {
         </div>
 
         {/* Location */}
-
         <div className="flex justify-between items-center md:flex-col md:space-y-2 md:w-full md:items-start">
           <label className="block text-sm font-semibold md:ml-1">Location</label>
           <select
@@ -66,16 +98,15 @@ const ProfileSettings = () => {
             required
             className="w-[70%] px-4 py-2 border rounded-md md:w-full"
           >
-              <option value="White Nile state">White Nile state</option>
-              <option value="Atbara">Atbara</option>
-              <option value="Port Sudan">Port Sudan</option>
-              <option value="Kasala">Kasala</option>
-              <option value="Shendy">Shendy</option>
+            <option value="White Nile state">White Nile state</option>
+            <option value="Atbara">Atbara</option>
+            <option value="Port Sudan">Port Sudan</option>
+            <option value="Kasala">Kasala</option>
+            <option value="Shendy">Shendy</option>
           </select>
         </div>
 
         {/* Social Media Account */}
-
         <div className="flex justify-between items-center md:flex-col md:space-y-2 md:w-full md:items-start">
           <label className="block text-sm font-semibold md:ml-1">Store Media Account</label>
           <input
@@ -87,12 +118,21 @@ const ProfileSettings = () => {
             className="w-[70%] px-4 py-2 border rounded-md md:w-full"
           />
         </div>
-        
 
         {/* Submit Button */}
-        <div className="flex justify-end">
+        <div className="flex justify-end space-x-4">
           <button type="submit" className="px-4 py-2 bg-[#ff7a57] text-white rounded hover:bg-[#f86642]">
             Save Changes
+          </button>
+
+          {/* Delete Store Button */}
+          <button
+            type="button"
+            onClick={handleDeleteStore}
+            className={`px-4 py-2 text-white rounded ${deleting ? 'bg-gray-500 cursor-not-allowed' : 'bg-red-600 hover:bg-red-500'}`}
+            disabled={deleting}
+          >
+            {deleting ? 'Deleting...' : 'Delete Store'}
           </button>
         </div>
       </form>

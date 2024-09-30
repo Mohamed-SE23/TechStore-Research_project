@@ -74,7 +74,11 @@ const SignInPage = () => {
         dispatch(setCustomerOwner(false));
         dispatch(setProductOwner(true));
         setLoading(false); // Stop loading after success
-        navigate("/");
+        if(response.data.data.account_type === 'provider') {
+          navigate(`/${response.data.data.userId}/profile`)
+        } else {
+          navigate('/')
+        }
       } catch (error) {
         console.log(error);
         setLoading(false); // Stop loading after failure
@@ -84,7 +88,7 @@ const SignInPage = () => {
         ) {
           toast.error(`Internal Server error`);
         } else {
-          toast.error(`${error.response.data.message}`);
+          toast.error(`${error.response.data.error}`);
         }
       }
     }

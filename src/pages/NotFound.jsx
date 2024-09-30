@@ -18,7 +18,7 @@ const NotFound = () => {
         Oops! The page you're looking for doesn't exist.
       </h1>
       <p>
-        It seems you've taken a wrong turn. Don't worry, it happens to the best of us! Use the navigation to get back on track, or head back to {user.type === 'customer' ? 
+        It seems you've taken a wrong turn. Don't worry, it happens to the best of us! Use the navigation to get back on track, or head back to {user?.type === 'customer' ? 
         <span className='text-blue-600 hover:text-blue-400'><Link to={'/'}>the home page</Link></span> 
         : 
         <span>

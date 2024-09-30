@@ -48,10 +48,11 @@ export const RenderRoutes = () => {
               if (r.isPrivate && user.verified) {
                 if (user.pOwner && r.name !== "Profile") {
                   return <Route key={i} path={r.path} element={r.element} />;
-                } else if (r.name === "Profile") {
+                }
+                } 
+                if (r.name === "Profile") {
                   return <Route key={i} path={r.path} element={r.element} />;
                 }
-              }
             })}
           </Routes>
         </Suspense>

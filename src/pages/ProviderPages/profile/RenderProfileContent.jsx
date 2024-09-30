@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Products from "./Products";
 import Information from "./Information";
 
-const RenderProfileContent = () => {
+const RenderProfileContent = ({ storeData }) => {
   const [activeTab, setActiveTab] = useState("products");
 
   const renderContent = () => {
@@ -10,7 +10,8 @@ const RenderProfileContent = () => {
       case "products":
         return <Products />;
       case "informations":
-        return <Information />;
+        return <Information 
+                      storeData={storeData}/>;
     }
   };
 

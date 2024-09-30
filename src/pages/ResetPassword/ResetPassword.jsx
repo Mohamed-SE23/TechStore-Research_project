@@ -5,20 +5,13 @@ import NewPasswordStep from './NewPasswordPage';
 
 const ResetPassword = () => {
   // Initialize the state from localStorage or set default to 1
-  const [currentStep, setCurrentStep] = useState(() => {
-    const savedStep = localStorage.getItem('currentStep');
-    return savedStep ? parseInt(savedStep, 10) : 1;
-  });
-
+  const [currentStep, setCurrentStep] = useState(1)
   const [email, setEmail] = useState(() => {
     const savedEmail = localStorage.getItem('email');
     return savedEmail || '';
   });
 
-  // Save the current step to localStorage whenever it changes
-  useEffect(() => {
-    localStorage.setItem('currentStep', currentStep);
-  }, [currentStep]);
+
 
   // Save the email to localStorage whenever it changes
   useEffect(() => {
@@ -29,7 +22,7 @@ const ResetPassword = () => {
 
   // This function moves to the next step
   const nextStep = () => {
-    setCurrentStep((prev) => prev + 1);
+    setCurrentStep(currentStep + 1);
   };
 
   // This function moves back a step (optional, for going back)
