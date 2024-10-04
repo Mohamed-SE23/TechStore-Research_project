@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AuthData } from '../../auth/AuthWrapper';
 import { providerNav } from './Navbar';
 import { selectCurrentUser } from '../../app/UserInfo';
+import MenuItem from '../reusable/MenuItem';
 
 export const ProviderHum = () => {
     const { logout } = AuthData();
@@ -14,22 +15,6 @@ export const ProviderHum = () => {
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
-
-    const MenuItem = ({r, onClick}) => {
-        return (
-            <NavLink
-                onClick={onClick}
-                to={r.path}
-                className={({ isActive }) =>
-                isActive
-                    ? 'text-[#FF7A57] transition duration-300 ease-in-out'
-                    : 'hover:text-[#FF7A57] transition duration-300 ease-in-out'
-                }
-            >
-                {r.name}
-          </NavLink>
-        )
-    }
 
     return (
         <div className='flex flex-col items-end absolute top-5 right-8'>

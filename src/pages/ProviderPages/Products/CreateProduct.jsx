@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { AuthData } from '../../../auth/AuthWrapper';
+import { useSelector } from 'react-redux';
+import { selectStoreData } from '../../../app/storeDataSlice';
+import { selectCurrentUser } from '../../../app/UserInfo';
+import toast from 'react-hot-toast';
+import PageLoading from '../../../components/reusable/PageLoading';
 
 const CreateProduct = () => {
   const [product, setProduct] = useState({
@@ -13,7 +18,10 @@ const CreateProduct = () => {
     image: null,
   });
   const navigate = useNavigate();
-  const { user } = AuthData();
+  const user = useSelector(selectCurrentUser);
+  const storeData = useSelector(selectStoreData);
+  const storeId = storeData.store_id;
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, files, checked } = e.target;
@@ -23,17 +31,52 @@ const CreateProduct = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // prevent default submit event
+
+    const data = new FormData();
+    data.append('store_id', storeId)
+    data.append('name',  product.name)
+    data.append('brand', product.brand)
+    data.append('category', product.category)
+    data.append('description', product.description)
+    data.append('price', product.price)
+    data.append('status', product.delivery)
+    data.append('location', storeData.store_location)
+    data.append('image_1', product.image)
+    console.log('the backend data is : ', data)
+
+    try {
+      setLoading(true);
+      const token = user.token;
+      console.log(token)
+      const response = await axios.post('/api/v1/products/add-product', data, {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          'Authorization': `Bearer ${token}`,  // Add the token here
+        },
+      });
+
+      setLoading(false)
+      toast.success('Product Created successful!');
+      console.log(response);
+    } catch (err) {
+      setLoading(false)
+      toast.error('Failed to create product');
+      console.log(err)
+    }
     // Implement the submit logic (e.g., send data to backend)
-    console.log('Product submitted:', JSON.stringify(product));
+    console.log('Product submitted:', product);
   };
 
   const handleCancel = () => {
-    navigate(`/${user.name}/productSettings`);
+    navigate(`/${user.userId}/productSettings`);
   };
 
   return (
+    <>
+    {loading && <PageLoading />}  {/* loading page   */}
+
     <div className="mx-[20%] my-10 p-8 rounded border lg:mx-[15%] md:mx-[10%] sm:mx-0 sm:border-none">
       <h1 className="text-3xl font-bold mb-10 text-center">Create Product</h1>
       <form onSubmit={handleSubmit} className="space-y-6">
@@ -161,6 +204,7 @@ const CreateProduct = () => {
         </div>
       </form>
     </div>
+    </>
   );
 };
 

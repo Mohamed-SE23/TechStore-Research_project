@@ -1,28 +1,14 @@
 import { useSelector } from 'react-redux';
-import { NavLink, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AuthData } from '../../auth/AuthWrapper';
 import { providerNav } from './Navbar';
 import { selectCurrentUser } from '../../app/UserInfo';
+import MenuItem from '../reusable/MenuItem';
 
 export const ProviderMenu = () => {
 
     const { logout } = AuthData();
     const user = useSelector(selectCurrentUser)
-
-    const MenuItem = ({r}) => {
-        return (
-            <NavLink
-            to={r.path}
-            className={({ isActive }) =>
-              isActive
-                ? 'text-[#FF7A57] transition duration-300 ease-in-out'
-                : 'hover:text-[#FF7A57] transition duration-300 ease-in-out'
-            }
-          >
-            {r.name}
-          </NavLink>
-        )
-    }
 
     return (
             <div className='flex md:hidden space-x-4 items-center first-letter'>

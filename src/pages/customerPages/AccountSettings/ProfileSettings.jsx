@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from '../../../app/UserInfo';
 
 const ProfileSettings = () => {
+
+  const user = useSelector(selectCurrentUser);
+
   const [profile, setProfile] = useState({
-    username: 'current_username',  // Example of pre-filled data
-    location: 'Atbara',
+    username: user.username,  // Example of pre-filled data
+    location: user.user_location,
     phone: '123-456-7890',
-    profilePhoto: null,
   });
 
   const handleChange = (e) => {

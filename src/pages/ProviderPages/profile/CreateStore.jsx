@@ -81,7 +81,7 @@ const CreateStore = () => {
 
         const response = await axios.post('/api/v1/stores/create-store', data, {
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'multipart/form-data',
             'Access-Control-Allow-Origin': '*',
             'Authorization': `Bearer ${token}`,  // Add the token here
           },
@@ -89,6 +89,7 @@ const CreateStore = () => {
 
         setLoading(false);
         toast.success(`${response.data.message}`);
+        window.location.reload(); // Reload the page
 
       } catch(error) {
 

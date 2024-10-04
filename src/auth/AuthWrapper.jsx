@@ -5,6 +5,7 @@ import { RenderMenu } from "../components/structure/RenderNavbar";
 import { RenderRoutes } from "./Routes";
 import Cart from "../pages/customerPages/cart/Cart";
 import { clearUser, selectCurrentUser } from "../app/UserInfo";
+import { clearStoreData } from "../app/storeDataSlice";
 
 const AuthContext = createContext();
 export const AuthData = () => useContext(AuthContext);
@@ -32,6 +33,7 @@ export const AuthWrapper = () => {
     // logout function 
     const logout = () => {
         dispatch(clearUser());
+        dispatch(clearStoreData());
         console.log('User is being logged out ...');
         navigate('/');
     }

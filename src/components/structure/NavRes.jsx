@@ -5,6 +5,7 @@ import { nav } from './Navbar';
 import CartNav from './CartNav';
 import { setOpenCart } from '../../app/CartSlice.js';
 import { selectCurrentUser } from '../../app/UserInfo.js';
+import MenuItem from '../reusable/MenuItem.jsx';
 
 
 export const Menu = () => {
@@ -17,22 +18,6 @@ export const Menu = () => {
         dispatch(setOpenCart({
             cartState: true
         }))
-    }
-
-
-    const MenuItem = ({r}) => {
-        return (
-            <NavLink
-                to={r.path}
-                className={({ isActive }) =>
-                isActive
-                    ? 'text-[#FF7A57] transition duration-300 ease-in-out'
-                    : 'hover:text-[#FF7A57] transition duration-300 ease-in-out'
-                }
-            >
-                {r.name}
-          </NavLink>
-        )
     }
 
     return (

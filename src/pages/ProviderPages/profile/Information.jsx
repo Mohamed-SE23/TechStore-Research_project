@@ -14,7 +14,7 @@ const Information = ({ storeData }) => {
     email: storeData.store_email,
     phone: storeData.store_phone_number,
     location: storeData.store_location,
-    media: storeData.social_media_account,
+    media: storeData.social_media_accounts,
   }
   return (
       <div className="flex flex-col space-y-6 w-full my-10 px-8 sm:px-2">
@@ -25,12 +25,12 @@ const Information = ({ storeData }) => {
           </h4>
           <p className="text-left">{Info.owner}</p>
       </div>
-        <div className="flex items-center justify-start">
+        <div className="flex items-center justify-start sm:flex-col sm:items-start sm:gap-2">
           <h4 className="flex items-center gap-2 text-sm font-semibold w-1/4 md:w-1/2 ">
               <MdEmail className='w-5 h-5' />
               <p>Email :</p>
           </h4>
-          <p className="text-left">{Info.email}</p>
+          <p className="text-left sm:ml-8">{Info.email}</p>
       </div>
         <div className="flex items-center justify-start">
           <h4 className="flex items-center gap-2 text-sm font-semibold w-1/4 md:w-1/2 ">
@@ -46,13 +46,13 @@ const Information = ({ storeData }) => {
           </h4>
           <p className="text-left">{Info.location}</p>
       </div>
-       {storeData.social_media_account && 
-        <div className="flex items-center justify-start">
-        <h4 className="flex items-center gap-2 text-sm font-semibold w-1/4 md:w-1/2 ">
+       {storeData?.social_media_accounts && storeData.social_media_accounts.trim() !== "" && 
+        <div className="flex items-center justify-start space-x-8 md:flex-col md:items-start md:gap-2">
+        <h4 className="flex items-center gap-2 text-sm font-semibold ">
             <VscGlobe className='w-5 h-5' />
             <p>Store Media Account</p>
         </h4>
-        <Link to={Info.media} className="text-left hover:text-[#ff7a57]">{Info.media}</Link>
+        <Link to={Info.media} className="text-left hover:text-[#ff7a57] md:ml-8">{Info.media}</Link>
     </div>
     }
     </div>

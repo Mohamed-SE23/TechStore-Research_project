@@ -56,7 +56,7 @@ const TimeLine = ({ StoreName, bio, inner_img, outer_img, store_id,user }) => {
 
       const response = await axios.put(`/api/v1/stores/update-store/${store_id}`, formData, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          'content-type': 'multipart/form-data',
           'Authorization': `Bearer ${token}`,  // Add the token here
         },
       });
@@ -80,7 +80,7 @@ const TimeLine = ({ StoreName, bio, inner_img, outer_img, store_id,user }) => {
   // Handle navigation to edit account
   const navigate = useNavigate();
   const handleNavigate = () => {
-    navigate("/proUserName/providerAccount");
+    navigate(`/${user?.userId || ''}/providerAccount`);
   };
 
   return (

@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from '../../../app/UserInfo';
+import PageLoading from '../../../components/reusable/PageLoading'
 
 const PersonalDetails = () => {
+
+  const [loading, setLoading] = useState(false);
+  const user = useSelector(selectCurrentUser);
+
   const [personal, setPersonal] = useState({
-    username: 'current_username',  // Example of pre-filled data
+    username: user.username,  // Example of pre-filled data
     phoneNumber: '1234567890',
   });
+
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -14,13 +22,39 @@ const PersonalDetails = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Submit logic
+
+    const token = user.token;
+    const data = new FormData();
+    data.append('username', personal.username);
+    data.append('phone_number', personal.phoneNumber);
+
+    try {
+      setLoading(true);
+
+      const response = await axios.put('/api/v1/account-update', data, {
+        headers: {
+          'content-type': 'application/json',
+          "Access-Control-Allow-Origin": "*",
+          'Authorization': `Bearer ${token}`,  // Add the token here
+        },
+      });
+
+      setLoading(false)
+      toast.success('Information updated successful!');
+      console.log(response);
+    } catch (err) {
+      setLoading(false)
+      toast.error('Failed to update information');
+      console.log(err)
+    }
     console.log('Profile updated:', personal);
   };
 
   return (
+    <>{loading && <PageLoading />}
     <div className="space-y-6 bg-white p-6 rounded-lg shadow-md">
       <h2 className="text-2xl font-semibold mb-6">Personal Information</h2>
       <form onSubmit={handleSubmit} className="space-y-6">
@@ -58,6 +92,7 @@ const PersonalDetails = () => {
         </div>
       </form>
     </div>
+    </>
   );
 };
 

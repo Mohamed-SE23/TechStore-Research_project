@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthData } from '../../auth/AuthWrapper';
 import { nav } from './Navbar';
 import CartNav from './CartNav';
 import { setOpenCart } from '../../app/CartSlice.js';
 import { selectCurrentUser } from '../../app/UserInfo.js';
+import MenuItem from '../reusable/MenuItem.jsx';
 
 export const Hamburger = () => {
     const { logout } = AuthData();
@@ -23,22 +24,6 @@ export const Hamburger = () => {
         dispatch(setOpenCart({
             cartState: true
         }));
-    };
-
-    const MenuItem = ({ r, onClick }) => {
-        return (
-            <NavLink
-                onClick={onClick}
-                to={r.path}
-                className={({ isActive }) =>
-                    isActive
-                        ? 'text-[#FF7A57] transition duration-300 ease-in-out'
-                        : 'hover:text-[#FF7A57] transition duration-300 ease-in-out'
-                }
-            >
-                {r.name}
-            </NavLink>
-        );
     };
 
     return (

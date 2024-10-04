@@ -25,6 +25,7 @@ const NewPasswordStep = () => {
     try {
       setLoading(true);
       const token = user.token;
+      console.log(token)
       const passwordData = {newPassword: password}
       await axios.post('/api/v1/password-reset', passwordData, {
         headers: {

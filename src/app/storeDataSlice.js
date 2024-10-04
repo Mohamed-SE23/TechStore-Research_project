@@ -14,7 +14,6 @@ const storeDataSlice = createSlice({
         setStoreData: (state, action) => {
             state.storeData = { ...action.payload };
             localStorage.setItem("storeData", JSON.stringify(state.storeData));
-            toast.success(`Store data updated successfully`);
         },
         // Clear the storeData (e.g., after store deletion)
         clearStoreData: (state) => {
