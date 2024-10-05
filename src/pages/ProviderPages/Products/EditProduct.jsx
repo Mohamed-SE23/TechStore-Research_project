@@ -93,7 +93,6 @@ const EditProduct = () => {
       console.log(err);
     }
 
-    console.log('Product submitted:', product);
   };
 
   const handleCancel = () => {

@@ -10,7 +10,7 @@ const Information = ({ storeData }) => {
   // this is local data will replace it with the database 
 
   const Info = {
-    owner: "Owner Name",
+    owner: storeData.store_owner,
     email: storeData.store_email,
     phone: storeData.store_phone_number,
     location: storeData.store_location,

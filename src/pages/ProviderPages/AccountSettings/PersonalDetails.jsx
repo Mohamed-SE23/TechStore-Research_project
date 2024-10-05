@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import axios from 'axios';
 import { selectCurrentUser } from '../../../app/UserInfo';
 import PageLoading from '../../../components/reusable/PageLoading'
+import toast from 'react-hot-toast';
 
 const PersonalDetails = () => {
 
@@ -10,7 +12,7 @@ const PersonalDetails = () => {
 
   const [personal, setPersonal] = useState({
     username: user.username,  // Example of pre-filled data
-    phoneNumber: '1234567890',
+    phoneNumber: user.phone_number,
   });
 
 
@@ -36,8 +38,6 @@ const PersonalDetails = () => {
 
       const response = await axios.put('/api/v1/account-update', data, {
         headers: {
-          'content-type': 'application/json',
-          "Access-Control-Allow-Origin": "*",
           'Authorization': `Bearer ${token}`,  // Add the token here
         },
       });
@@ -76,7 +76,7 @@ const PersonalDetails = () => {
           <label className="block text-sm font-semibold md:ml-1">Phone Number</label>
           <input
             type="text"
-            name="phone"
+            name="phoneNumber"
             placeholder="phone number"
             value={personal.phoneNumber}
             onChange={handleChange}

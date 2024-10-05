@@ -117,11 +117,12 @@ const CreateProduct = () => {
             onChange={handleChange}
             required
             className="mt-1 block w-[69%] px-4 py-2 border rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-          >
+          > 
             <option className='text-gray-400' 
                     value="">Select a category</option>
             <option value="laptops">Laptops</option>
             <option value="computers">Computers</option>
+            <option value="cameras">Cameras</option>
             <option value="audio">Audio</option>
             <option value="gaming">Gaming</option>
             <option value="office">Office</option>

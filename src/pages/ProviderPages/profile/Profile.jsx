@@ -26,23 +26,26 @@ const Profile = () => {
         const response = await axios.get('/api/v1/stores/stores');
 
         const stores = response.data.stores;
-        console.log(response.data.stores)
+
         // Check if the current user owns a store
-        const userStore = stores.find(store => store.provider_id === params.userId);
-        const owningStore = stores.find(store => store.provider_id === currentUser.userId);
-        console.log(userStore)
-        if (userStore) {
+        const userStore = stores.find(store => String(store.provider_id) === params.userId);
+        const owningStore = stores.find(store => store.provider_id === currentUser?.userId);
+        
+        if (userStore && !owningStore) {
           dispatch(setStoreData(userStore)); // Store the user store data
-        } else if(owningStore) {
+          dispatch(setProductOwner(false)); // Update Redux store to reflect product owner
+
+        } else if(userStore && owningStore) {
           setHaveStore(true); // User owns a store
           dispatch(setStoreData(owningStore)); // Store the user store data
           dispatch(setProductOwner(true)); // Update Redux store to reflect product owner
+
         } else {
           setHaveStore(false); // User does not own a store
         }
       } catch (error) {
-        console.log('Error fetching stores:', error.response || error.message); // Log the full error
-        setError('Failed to fetch store data. Please try again later.');
+        console.log('Error fetching stores:', error.response.data.message); // Log the full error
+        setError(`${error?.response.data.message || 'Failed to fetch store data. Please try again later.'}`);
       } finally {
         setLoading(false); // Set loading to false after data is fetched or if an error occurs
       }
@@ -59,6 +62,9 @@ const Profile = () => {
 
   if (error) {
     // If an error occurred, display the error message
+    if (error === "No stores found" && POwner){
+      return <CreateStore />
+    }
     return <div className="text-red-600 flex items-center justify-center h-screen">{error}</div>;
   }
 

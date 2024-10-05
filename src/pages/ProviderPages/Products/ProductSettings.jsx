@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
 import { IoMdSearch } from "react-icons/io";
 import { selectCurrentUser } from "../../../app/UserInfo";
 import { selectStoreData } from "../../../app/storeDataSlice";
+import {fetchStores} from "../profile/RefreshStore"
 import PageLoading from "../../../components/reusable/PageLoading";
 import toast from "react-hot-toast";
 
@@ -15,19 +16,10 @@ const ProductSettings = () => {
   const storeData = useSelector(selectStoreData);
   const products = storeData?.products || [];
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const params =  useParams();
 
-  // useEffect(() => {
-  //   fetchProducts();
-  // }, []);
-
-  // const fetchProducts = async () => {
-  //   // try {
-  //   //   const response = await axios.get('/api/products'); // Replace with your API endpoint
-  //   //   setProducts(response.data);
-  //   // } catch (error) {
-  //   //   console.error('Error fetching products:', error);
-  //   // }
-  // };
+ 
 
   // navigate to create product page
   const handleCreate = () => {
@@ -78,6 +70,14 @@ const ProductSettings = () => {
   const handleSearch = () => {
     // Implement search functionality here
   };
+
+   // Refresh the page automatically
+   useEffect(() =>{
+    const loadStores = async () => {
+      await fetchStores({dispatch, setLoading, params, user});
+    }
+    loadStores();
+  },[])
 
   return (
     <>

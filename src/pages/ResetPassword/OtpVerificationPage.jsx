@@ -3,10 +3,12 @@ import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { setUser } from '../../app/UserInfo';
+import PageLoading from '../../components/reusable/PageLoading';
 
 const OtpVerificationStep = ({ email, setEmail, nextStep }) => {
   const [otp, setOtp] = useState(new Array(6).fill(''));
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(60); // Countdown timer (1 min)
   const dispatch = useDispatch();
@@ -47,6 +49,7 @@ const OtpVerificationStep = ({ email, setEmail, nextStep }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const otpCode = otp.join('');
       const otpData = {otpCode: otpCode}
       const response = await axios.post('/api/v1/otp-verify', otpData, {
@@ -56,10 +59,12 @@ const OtpVerificationStep = ({ email, setEmail, nextStep }) => {
 
         },
       });
+      setLoading(false);
       dispatch(setUser(response.data.data))
       console.log(response.data.data)
       nextStep(); // Move to new password step if successful
     } catch (err) {
+      setLoading(false);
       console.log(err)
       setError('Invalid Code. Please try again.');
     }
@@ -68,6 +73,7 @@ const OtpVerificationStep = ({ email, setEmail, nextStep }) => {
   const handleResendOtp = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const emailData = {email: email}
       const response = await axios.post('/api/v1/opt', emailData, {
         headers: {
@@ -75,16 +81,20 @@ const OtpVerificationStep = ({ email, setEmail, nextStep }) => {
           "Access-Control-Allow-Origin": "*",
         },
       });
+      setLoading(false);
       setTimeRemaining(60);
       setIsButtonDisabled(true);
       toast.success(`code was resent successfully`)
       console.log(response);
     } catch (err) {
+      setLoading(false);
       setError('Failed to resend OTP');
     }
   };
 
   return (
+    <>
+    {loading && <PageLoading />}
     <div>
       <h2 className="text-2xl font-bold text-center mb-4">Verification code</h2>
       <p className="text-center text-gray-600 mb-4">Enter the 6-digit code we sent to your email.</p>
@@ -127,6 +137,7 @@ const OtpVerificationStep = ({ email, setEmail, nextStep }) => {
         </form>
       </div>
     </div>
+    </>
   );
 };
 

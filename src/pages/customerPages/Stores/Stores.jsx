@@ -4,12 +4,24 @@ import Title from "../../../components/reusable/title";
 import SearchField from "../../../components/reusable/Search";
 import Loading from "../../../components/reusable/Loading";
 import SkeletonLoading from "../../../components/reusable/SkeletonLoading";
+import StoreCard from "./StoreCard";
 
 const Stores = () => {
   const [searching, setSearching] = useState("");
   const [loading, setLoading] = useState(false);
-  console.log(searching);
-  console.log(loading);
+  const [stores, setStores] = useState();
+
+  const fetchStores = async () => {
+
+    try{
+
+      const response = await axios.git('/api/v1/stores/stores-with-out-product');
+
+    } catch(error) {
+      console.log(error)
+    }
+  }
+ 
 
   return (
     <div>
@@ -32,6 +44,7 @@ const Stores = () => {
             ))}
         </div>
       </div> */}
+      <StoreCard />
     </div>
   );
 };

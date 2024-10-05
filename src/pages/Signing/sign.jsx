@@ -104,10 +104,10 @@ const SignInPage = () => {
 
         {/* sign in header */}
         <div className="max-w-md w-full bg-white p-8 rounded-lg border border-[#ff7a57] sm:p-0x sm:border-none ">
-          <h2 className="text-center text-3xl font-bold text-gray-700 mb-6">
+          <h2 className="text-center text-3xl font-bold text-gray-700 mb-2">
             Sign In
           </h2>
-          <div className="mt-6 text-center">
+          <div className="text-center mb-6">
             <p className="text-sm text-gray-600">
               Don't have an account?{" "}
               <Link
