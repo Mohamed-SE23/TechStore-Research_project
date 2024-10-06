@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Hero from "../../../components/reusable/Hero";
 import Title from "../../../components/reusable/title";
 import SearchField from "../../../components/reusable/Search";
 import Loading from "../../../components/reusable/Loading";
 import SkeletonLoading from "../../../components/reusable/SkeletonLoading";
 import StoreCard from "./StoreCard";
+import PageLoading from "../../../components/reusable/PageLoading";
+import StoresLoading from "./StoresLoading";
 
 const Stores = () => {
   const [searching, setSearching] = useState("");
@@ -14,14 +16,22 @@ const Stores = () => {
   const fetchStores = async () => {
 
     try{
-
+      setLoading(true);
       const response = await axios.git('/api/v1/stores/stores-with-out-product');
 
+      setLoading(false);
+      console.log(response.data.stores)
+      setStores(response.data.stores)
+
     } catch(error) {
+      setLoading(false);
       console.log(error)
     }
   }
- 
+  
+  useEffect(() => {
+    fetchStores();
+  },[])
 
   return (
     <div>
@@ -33,18 +43,23 @@ const Stores = () => {
         setSearching={setSearching}
         placeholder={"Search for store..."}
       />
-      <Loading />
-      {/*  Skeleton Loading */}
-      {/* <div className="flex flex-col items-center justify-center">
-        <div className="grid grid-cols-4 items-center justify-center w-full lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6 px-8 mb-20">
-          {Array(8) // Create an array with 6 items to simulate 6 skeleton loaders
-            .fill(null)
-            .map((_, index) => (
-              <SkeletonLoading key={index} /> // Render 6 SkeletonLoader components
-            ))}
-        </div>
-      </div> */}
-      <StoreCard />
+
+      {/* all stores storeName, inner_image, outer_image, ownerId, bio */}
+    {loading ? 
+      <StoresLoading /> // stores skeleton loading
+      : 
+      <div>
+      {stores?.map((store, i) => 
+         <StoreCard 
+                  key={i}
+                  storeName={store.store_name}
+                  inner_image={store.inner_image_url}
+                  outer_image={store.outer_image_url}
+                  ownerId={store.owner_id}
+                  bio={store.store_bio || ""}
+                  />
+      )}
+    </div>}
     </div>
   );
 };
