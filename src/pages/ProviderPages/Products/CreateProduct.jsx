@@ -44,12 +44,11 @@ const CreateProduct = () => {
     data.append('status', product.delivery)
     data.append('location', storeData.store_location)
     data.append('image_1', product.image)
-    console.log('the backend data is : ', data)
 
     try {
       setLoading(true);
       const token = user.token;
-      console.log(token)
+
       const response = await axios.post('/api/v1/products/add-product', data, {
         headers: {
           "Access-Control-Allow-Origin": "*",
@@ -60,13 +59,21 @@ const CreateProduct = () => {
       setLoading(false)
       toast.success('Product Created successful!');
       console.log(response);
+      setProduct({
+        name: '',
+        brand: '',
+        category: '',
+        price: '',
+        description: '',
+        delivery: false,
+        image: null,
+      });
+
     } catch (err) {
       setLoading(false)
       toast.error('Failed to create product');
       console.log(err)
     }
-    // Implement the submit logic (e.g., send data to backend)
-    console.log('Product submitted:', product);
   };
 
   const handleCancel = () => {
@@ -132,7 +139,7 @@ const CreateProduct = () => {
             <option value="Photography">Photography</option>
           </select>
         </div>
-
+        
         <div className='flex justify-between items-center'>
           <label htmlFor="price" className="block text-sm font-semibold text-gray-700">Price</label>
           <input
